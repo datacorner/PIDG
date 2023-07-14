@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../src")
 from pipelines.pipelineFactory import pipelineFactory
 from config.cmdLineConfig import cmdLineConfig
 
-class testCSVFiles(unittest.TestCase):
+class test_Files(unittest.TestCase):
     def setUp(self):
         print("Running CSV import Test")
 
