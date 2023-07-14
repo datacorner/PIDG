@@ -104,5 +104,5 @@ class pipelineFactory:
 			return datasourceObject(self.config)
 		
 		except Exception as e:
-			print("pipelineFactory.create(): Error when loading the Data Source Factory: {}"/format(str(e)))
+			print("pipelineFactory.create(): Error when loading the Data Source Factory: {}".format(str(e)))
 			return None
