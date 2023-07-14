@@ -19,6 +19,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
 ]
 dependencies = [
+  'openpyxl==3.1.2',
   'blinker==1.6.2',
   'certifi==2023.5.7',
   'charset-normalizer==3.1.0',

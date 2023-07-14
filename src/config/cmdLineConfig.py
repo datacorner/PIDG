@@ -139,7 +139,8 @@ class cmdLineConfig:
 			args = dict(sourcetype=sourcetype, 
 	       				configfile=configfile,
 						filename=filename,
-						sep = sep)
+						sep = sep,
+						sheet=sheet)
 			config, src = cmdLineConfig.manageArgs(args)
 			return config, src
 
