@@ -1,11 +1,11 @@
 Source,Target
-Prepare implements,Prepare implements
-Get in sterile clothes,Get in sterile clothes
-Ultrasound configuration,Ultrasound configuration
+Prepare implements,
+Get in sterile clothes,XXX
+Ultrasound configuration,YYY
 Check wire in long axis,Check wire in long axis
 Advance catheter,Advance catheter
 Puncture,Puncture
-Blood return,Blood return
+Blood return,
 Drop probe,Drop probe
 Guidewire install,Guidewire install
 Check wire in short axis,Check wire in short axis
@@ -17,13 +17,13 @@ Hand washing,Hand washing
 Put sterile gel,Put sterile gel
 Widen pathway,Widen pathway
 Remove guidewire,Remove guidewire
-Compression identification,Compression identification
+Compression identification,
 Cover probe,Cover probe
 Drap puncture area,Drap puncture area
 Anesthetize,Anesthetize
 Clean puncture area,Clean puncture area
 Gel in probe,Gel in probe
-Check flow and reflow,Check flow and reflow
+Check flow and reflow,
 Check catheter position,Check catheter position
 Wire in good position,Wire in good position
 Position patient,Position patient

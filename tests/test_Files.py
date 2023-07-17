@@ -24,7 +24,7 @@ class testCSVFiles(unittest.TestCase):
                                                     sep=sep) 
         return pipelineFactory(src, config).createAndExecute()
 
-    def test_csv_1(self):
+    def test_csv_1_generateMap(self):
         filename = "./tests/data/test.csv"
         sep = ","
         self.e, self.t, self.l = self.processTest(filename, sep)
