@@ -170,3 +170,5 @@ config-samples/sqlite/dev/pdm.sql
 .venv_pyBPPIBridge/*
 config-samples/sqlite/datamodel.dbs.bak
 .pyBPPIBridge/*
+
+sandbox/*

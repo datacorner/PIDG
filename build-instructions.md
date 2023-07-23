@@ -18,3 +18,7 @@ https://packaging.python.org/en/latest/tutorials/packaging-projects/
 2) run python3 -m build
 3) deploy / pyPI 
     twine upload --verbose dist/pybppibridge-0.4.x-py3-none-any.whl
+
+Packages not necessary for deployments
+twine
+prettytable

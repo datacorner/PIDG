@@ -1,6 +1,6 @@
 [project]
 name = "pyBPPIBridge"
-version = "0.4.8.9"
+version = "0.4.9"
 authors = [
   { name="Benoit Cayla", email="benoit@datacorner.fr" },
 ]
