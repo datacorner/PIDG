@@ -9,9 +9,9 @@ $ python setup.py bdist_wheel
 twine upload --verbose dist/pyBPPIBridge-0.x.x-py3-none-any.whl
 (may install twine via pip install twine)
 
-**********************************
+***************************************************************
 With TOML
-**********************************
+***************************************************************
 https://packaging.python.org/en/latest/tutorials/packaging-projects/
 
 1) build/Modify the *.toml file
@@ -19,6 +19,18 @@ https://packaging.python.org/en/latest/tutorials/packaging-projects/
 3) deploy / pyPI 
     twine upload --verbose dist/pybppibridge-0.4.x-py3-none-any.whl
 
-Packages not necessary for deployments
+**********************************************************
+Packages not necessary / Used for deployments
+**********************************************************
 twine
 prettytable
+
+**********************************************************
+Mandatory packages to install:
+**********************************************************
+pandas
+xmltodict
+requests
+pyodbc
+pyrfc
+openpyxl

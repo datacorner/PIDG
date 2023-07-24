@@ -5,7 +5,7 @@ __license__ = "GPL"
 import utils.constants as C
 from bppiapi.repository.bppiRepository import bppiRepository
 import pandas as pd
-import pm4py
+from utils.wrappers.xesWrapper import xesWrapper
 
 XES_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME]
 
@@ -37,10 +37,10 @@ class bppiPLRXESFile(bppiRepository):
         """
         try:
             filename = self.config.getParameter(C.PARAM_FILENAME)
-            log = pm4py.read_xes(filename, index=False)
-            df = pm4py.convert_to_dataframe(log)
+            log = xesWrapper()
+            df = log.getEvents(filename)
             return df
         except Exception as e:
-            self.log.error("extract() Error" + str(e))
+            self.log.error("bppiPLRXESFile.extract() Error: " + str(e))
             return super().extract()
         
