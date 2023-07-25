@@ -5,14 +5,21 @@ __license__ = "MIT"
 import xmltodict    # MIT License
 from json import dumps,loads
 import pandas as pd
+from utils.log import log
 
 # Inspired by https://github.com/FrankBGao/read_xes/tree/master
 DATATYPES = ['string',  'int', 'date', 'float', 'boolean', 'id']
+CASE_KEY = 'concept-name-attr'
 
 class xesFile:
-    def __init__(self):
+    def __init__(self, log = None):
         self.__filename = ""
         self.__flatContent = pd.DataFrame()
+        self.__log = log
+
+    @property
+    def log(self) -> log:
+        return self.__log
 
     @property
     def filename(self):
@@ -42,7 +49,7 @@ class xesFile:
                         one_event_dict[j['@key']] = j['@value']
                 else:
                     one_event_dict[event[i]['@key']] = event[i]['@value']
-        one_event_dict['concept-name-attr'] = id
+        one_event_dict[CASE_KEY] = id
         return one_event_dict
 
     def __ExtractOneTrace(self, trace_item):
@@ -83,16 +90,20 @@ class xesFile:
             list: attributes
         """
         traces = loads(dumps(xmltodict.parse(xml)))['log']['trace']
+        self.log.debug("xesFile.__extractAll(): {} traces to manage".format(len(traces)))
         attributes_list = []
         event_list = []
         # reads the traces tags one by one and get all the events & attrs
+        traceIdx = 1
         for trace in traces:
             trace_item = self.__ExtractOneTrace(trace)
             attributes_list.append(trace_item[0]) # Attributes
             event_list = event_list + trace_item[1] # Event details
+            self.log.debug("xesFile.__extractAll(): {}) {} -> {} evts".format(traceIdx, trace_item[0]['concept:name'], len(trace_item[1])))
+            traceIdx += 1
         return event_list, attributes_list
     
-    def getEvents(self) -> bool:
+    def read(self) -> bool:
         """ Returns all the XES events in a DataFrame format
 
         Args:
@@ -110,5 +121,5 @@ class xesFile:
             return True
         
         except Exception as e:
-            print("xesFile.getEvents() Error: " + str(e))
+            self.log.error("xesFile.getEvents() Error: " + str(e))
             return False
