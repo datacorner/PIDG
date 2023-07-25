@@ -20,10 +20,11 @@ https://packaging.python.org/en/latest/tutorials/packaging-projects/
     twine upload --verbose dist/pybppibridge-0.4.x-py3-none-any.whl
 
 **********************************************************
-Packages not necessary / Used for deployments
+Packages not necessary / but Used for deployments
 **********************************************************
 twine
 prettytable
+build
 
 **********************************************************
 Mandatory packages to install:
