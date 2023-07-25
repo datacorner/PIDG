@@ -38,8 +38,10 @@ class bppiPLRXESFile(bppiRepository):
         try:
             filename = self.config.getParameter(C.PARAM_FILENAME)
             log = xesFile()
-            df = log.getEvents(filename)
-            return df
+            log.filename = filename
+            log.getEvents()
+            return log.flatContent
+        
         except Exception as e:
             self.log.error("bppiPLRXESFile.extract() Error: " + str(e))
             return super().extract()
