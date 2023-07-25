@@ -1,6 +1,6 @@
 __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
-__license__ = "GPL"
+__license__ = "MIT"
 
 from bppibridge import main
 

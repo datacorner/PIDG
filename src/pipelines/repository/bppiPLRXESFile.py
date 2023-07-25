@@ -1,11 +1,11 @@
 __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
-__license__ = "GPL"
+__license__ = "MIT"
 
 import utils.constants as C
 from bppiapi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from utils.wrappers.xesWrapper import xesWrapper
+from utils.readers.xesFile import xesFile
 
 XES_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME]
 
@@ -37,7 +37,7 @@ class bppiPLRXESFile(bppiRepository):
         """
         try:
             filename = self.config.getParameter(C.PARAM_FILENAME)
-            log = xesWrapper()
+            log = xesFile()
             df = log.getEvents(filename)
             return df
         except Exception as e:

@@ -1,6 +1,6 @@
 __ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
-__license__ = "GPL"
+__license__ = "MIT"
 
 class cursorByField(object):
     """ This class aims to use the cursor by using the fields directly
