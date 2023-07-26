@@ -183,11 +183,12 @@ class bppiPipeline:
                     self.log.warning("{} does not exist, create a event map template file instead".format(evtMapFilename))
                     # Create the file template
                     colName = df[evtMapColumnname].value_counts().index
-                    dfTemplate = pd.DataFrame(columns=["Source", "Target"])
-                    dfTemplate["Source"] = colName
-                    dfTemplate["Target"] = colName
-                    dfTemplate = dfTemplate.sort_values(by=['Source'])
-                    dfTemplate.to_csv(evtMapFilename, encoding=C.ENCODING, index=False)
+                    dfevtMap = pd.DataFrame(columns=["Source", "Target"])
+                    dfevtMap["Source"] = colName
+                    dfevtMap["Target"] = colName
+                    dfevtMap = dfevtMap.sort_values(by=['Source'])
+                    dfevtMap.to_csv(evtMapFilename, encoding=C.ENCODING, index=False)
+                    return df # No map to do !
                 # Manage the event mapping
                 if (dfevtMap.shape[1] != 2):
                     raise Exception("There are more than 2 columns in the event map file.")

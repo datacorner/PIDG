@@ -1,30 +1,30 @@
 Source,Target
-Prepare implements,
-Get in sterile clothes,XXX
-Ultrasound configuration,YYY
-Check wire in long axis,Check wire in long axis
 Advance catheter,Advance catheter
-Puncture,Puncture
-Blood return,
-Drop probe,Drop probe
-Guidewire install,Guidewire install
-Check wire in short axis,Check wire in short axis
-Remove syringe,Remove syringe
 Anatomic identification,Anatomic identification
-Position probe,Position probe
-Remove trocar,Remove trocar
-Hand washing,Hand washing
-Put sterile gel,Put sterile gel
-Widen pathway,Widen pathway
-Remove guidewire,Remove guidewire
-Compression identification,
-Cover probe,Cover probe
-Drap puncture area,Drap puncture area
 Anesthetize,Anesthetize
-Clean puncture area,Clean puncture area
-Gel in probe,Gel in probe
-Check flow and reflow,
+Blood return,Blood return
 Check catheter position,Check catheter position
-Wire in good position,Wire in good position
-Position patient,Position patient
+Check flow and reflow,Check flow and reflow
+Check wire in long axis,Check wire in long axis
+Check wire in short axis,Check wire in short axis
+Clean puncture area,Clean puncture area
+Compression identification,Compression identification
+Cover probe,Cover probe
 Doppler identification,Doppler identification
+Drap puncture area,Drap puncture area
+Drop probe,Drop probe
+Gel in probe,Gel in probe
+Get in sterile clothes,Get in sterile clothes
+Guidewire install,Guidewire install
+Hand washing,Hand washing
+Position patient,Position patient
+Position probe,Position probe
+Prepare implements,Prepare implements
+Puncture,Puncture
+Put sterile gel,Put sterile gel
+Remove guidewire,Remove guidewire
+Remove syringe,Remove syringe
+Remove trocar,Remove trocar
+Ultrasound configuration,Ultrasound configuration
+Widen pathway,Widen pathway
+Wire in good position,Wire in good position
