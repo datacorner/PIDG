@@ -5,6 +5,9 @@ __license__ = "MIT"
 import json
 
 class uploadConfig():
+    """ This class contains all the informations gathered from the BPPI server.
+    -> From the user configuration when creating a token.
+    """
     def __init__(self, httpResponse = None):
         self.__loaded = False
         if (httpResponse == None):
