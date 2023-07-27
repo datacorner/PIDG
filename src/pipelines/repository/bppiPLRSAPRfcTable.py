@@ -5,9 +5,8 @@ __license__ = "MIT"
 import utils.constants as C
 from bppiapi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pyrfc import Connection, ABAPApplicationError, ABAPRuntimeError, LogonError, CommunicationError, RFCError
+from pipelines.readers.sapRFCTableReader import sapRFCTableReader
 
-from pipelines.readers.sapRFCTable import sapRFCTable
 """
     SE37 check in SAP
     RFC_READ_TABLE (function module)
@@ -59,7 +58,7 @@ class bppiPLRSAPRfcTable(bppiRepository):
             field_names = self.config.getParameter(C.PARAM_SAP_RFC_FIELDS, C.EMPTY).split(',')
             table_name = self.config.getParameter(C.PARAM_SAP_RFC_TABLE)
             row_limit = int(self.config.getParameter(C.PARAM_SAP_RFC_ROWCOUNT, "0"))
-            sap = sapRFCTable(self.log)
+            sap = sapRFCTableReader(self.log)
             sap.setConnectionParams(ahost=ASHOST, 
                                     client=CLIENT, 
                                     sysnr=SYSNR, 

@@ -1,0 +1,37 @@
+__author__ = "Benoit CAYLA"
+__email__ = "benoit@datacorner.fr"
+__license__ = "MIT"
+
+import utils.constants as C
+import pandas as pd
+from .Reader import Reader 
+import pyodbc
+
+class odbcReader(Reader):
+    def setConnectionParams(self, connectionstring, query):
+        self.__connString = connectionstring
+        self.__query = query
+
+    def read(self) -> bool:
+        """ Returns all the BP Repository data in a df
+        Returns:
+            bool: False is any trouble when reading
+        """
+        try:
+            self.log.info("Connect to thr ODBC Datasource ...")
+            odbcConnection = pyodbc.connect(self.__connString)
+            self.log.info("Connected to ODBC Data source")
+            if (not odbcConnection.closed):
+                self.log.debug("Execute the query: {}".format(self.__query))
+                self.content = pd.read_sql(self.__query, odbcConnection)
+                odbcConnection.close()
+                self.log.debug("<{}> rows read".format(self.content.shape[0]))
+            return True
+        
+        except Exception as e:
+            self.log.error("odbcReader.read() Error: " + str(e))
+            try:
+                odbcConnection.close()
+            except:
+                pass
+            return False

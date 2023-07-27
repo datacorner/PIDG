@@ -70,7 +70,7 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
 
     def __buildQuery(self) -> str:
         """Build the SQL Query to get the BP logs against the BP repository
-            The BP Logs SQL qeury is stored in the bp.config file and can be customized with 3 args:
+            The BP Logs SQL qeury is stored in the bp.config file and can be customized with several args:
                 * {attrxml}: Name of the INPUT/OUTPUT attributes columns (XML format)
                 * {processname}: Process Name in Blue Prism
                 * {stagetypefilter}: list of stage to filter out

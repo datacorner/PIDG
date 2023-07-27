@@ -7,6 +7,7 @@ from pipelines.repository.bppiPLRCSVFile import bppiPLRCSVFile
 from pipelines.builders.SQLBuilder import SQLBuilder
 import pyodbc
 import pandas as pd
+from pipelines.readers.odbcReader import odbcReader
 
 # Mandatory params to check
 ODBC_MANDATORY_PARAM_LIST = [C.PARAM_CONNECTIONSTRING, 
@@ -46,22 +47,13 @@ class bppiPLRODBC(bppiPLRCSVFile):
         """
         tableResult = pd.DataFrame()
         try:
-            self.log.info("Execute the ODBC Query and load the result into the BPPI repository")
-            if (self.repositoryConfig.loaded):
-                odbc = self.config.getParameter(C.PARAM_CONNECTIONSTRING)
-                query = self.query
-                sqlserverConnection = pyodbc.connect(odbc)
-                self.log.debug("Connected to ODBC Data source")
-                if (not sqlserverConnection.closed):
-                    self.log.debug("Execute the query: {}".format(query))
-                    tableResult = pd.read_sql(query, sqlserverConnection)
-                    sqlserverConnection.close()
-                    self.log.debug("<{}> rows read".format(tableResult.shape[0]))
-            return tableResult
+            odbc = self.config.getParameter(C.PARAM_CONNECTIONSTRING)
+            reader = odbcReader(self.log)
+            reader.setConnectionParams(odbc, self.query)
+            if (not reader.read()):
+                raise Exception("Error while connecting/reading the ODBC Data Source")
+            return reader.content
+
         except Exception as e:
             self.log.error("extract() Error -> " + str(e))
-            try:
-                sqlserverConnection.close()
-            except:
-                return super().extract()
             return super().extract()

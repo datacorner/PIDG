@@ -5,14 +5,13 @@ __license__ = "MIT"
 import xmltodict    # MIT License
 from json import dumps, loads
 import pandas as pd
-from .reader import reader 
+from .Reader import Reader 
 
 # Inspired by https://github.com/FrankBGao/read_xes/tree/master
 DATATYPES = ['string',  'int', 'date', 'float', 'boolean', 'id']
 CASE_KEY = 'concept-name-attr'
 
-class xesFile(reader):
-
+class xesFileReader(Reader):
     @property
     def filename(self):
         return self.__filename

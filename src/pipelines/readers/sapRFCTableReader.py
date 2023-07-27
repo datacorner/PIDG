@@ -2,18 +2,16 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-import utils.constants as C
-from bppiapi.repository.bppiRepository import bppiRepository
 import pandas as pd
 from pyrfc import Connection, ABAPApplicationError, ABAPRuntimeError, LogonError, CommunicationError, RFCError
-from .reader import reader 
+from .Reader import Reader 
 """
     SE37 check in SAP
     RFC_READ_TABLE (function module)
 
 """
 
-class sapRFCTable(reader):
+class sapRFCTableReader(Reader):
     def setConnectionParams(self, ahost, client, sysnr, user, pwd, router):
         self.__ahost = ahost
         self.__client = client
@@ -51,7 +49,7 @@ class sapRFCTable(reader):
             self.log.error("sapRFCTable.__connectToSAP(): An error occurred")
         return None
 
-    def __callRfcReadTable(self, conn) -> pd.DataFrame:
+    def __callRFCReadTable(self, conn) -> pd.DataFrame:
         """ Call the RFC_READ_TABLE BAPI and get the dataset as result
         Args:
             conn (_type_): SAP Connection via pyrfc
@@ -85,7 +83,7 @@ class sapRFCTable(reader):
             return pd.DataFrame(records, dtype=str)
 
         except Exception as e:
-            self.log.error("sapRFCTable.__callRfcReadTable() Exception -> " + str(e))
+            self.log.error("sapRFCTable.__callRFCReadTable() Exception -> " + str(e))
             return pd.DataFrame()
         
     def read(self) -> bool:
@@ -96,7 +94,7 @@ class sapRFCTable(reader):
         try:
             sapConn = self.__connectToSAP()
             if (sapConn != None):
-                self.content = self.__callRfcReadTable(sapConn)
+                self.content = self.__callRFCReadTable(sapConn)
             return True
         
         except Exception as e:

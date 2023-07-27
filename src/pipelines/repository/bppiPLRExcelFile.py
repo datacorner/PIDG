@@ -5,6 +5,7 @@ __license__ = "MIT"
 import utils.constants as C
 from bppiapi.repository.bppiRepository import bppiRepository
 import pandas as pd
+from pipelines.readers.excelFileReader import excelFileReader
 
 EXCEL_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME, 
                               C.PARAM_BPPITOKEN, 
@@ -37,13 +38,13 @@ class bppiPLRExcelFile(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            filename = self.config.getParameter(C.PARAM_FILENAME)
-            sheet = self.config.getParameter(C.PARAM_EXCELSHEETNAME)
-            if (sheet == "0" or sheet == ""):
-                sheet = 0
-            # Read the Excel file and provides a DataFrame
-            df = pd.read_excel(filename, sheet_name=sheet) #, engine='openpyxl')
-            return df
+            excel = excelFileReader(self.log)
+            excel.filename = self.config.getParameter(C.PARAM_FILENAME)
+            excel.sheet = self.config.getParameter(C.PARAM_EXCELSHEETNAME)
+            if (not excel.read()):
+                raise Exception("Error while reading the Excel file")
+            return excel.content
+        
         except Exception as e:
             self.log.error("extract() Error -> " + str(e))
             return super().extract()
