@@ -2,31 +2,18 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-from bppiapi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
+from bppi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
 from utils.log import log
 import pandas as pd
 import utils.constants as C
 import time
-from config.appConfig import appConfig
+from pipelines.pipeline import pipeline
 
 MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                         C.PARAM_BPPIURL]
 
-class bppiPipeline:
-    def __init__(self, config):
-        self.__config = config          # All the configuration parameters
-        self.__trace = None             # Logger
+class bppiPipeline(pipeline):
 
-    # Contains all the config parameters (from the INI file)
-    @property
-    def config(self) -> appConfig:
-        return self.__config
-    @property
-    def mandatoryParameters(self) -> str:
-        return MANDATORY_PARAM_LIST
-    @property
-    def log(self) -> log:
-        return self.__trace
     @property
     def url(self) -> str:
         return self.__serverURL
@@ -63,7 +50,7 @@ class bppiPipeline:
             print("Log file: {}".format(logfilename))
             level = self.config.getParameter(C.PARAM_LOGLEVEL, C.TRACE_DEFAULT_LEVEL)
             format = self.config.getParameter(C.PARAM_LOGFORMAT, C.TRACE_DEFAULT_FORMAT)
-            self.__trace = log(__name__, logfilename, level, format)
+            self.log = log(__name__, logfilename, level, format)
             # Init BPPI APIs
             self.log.info("*** Beggining of Job treatment ***")
             if (not self.checkParameters()):
@@ -72,11 +59,6 @@ class bppiPipeline:
         except Exception as e:
             self.log.error("initialize() Error -> " + str(e))
             return False
-        
-    def terminate(self) -> bool:
-        # For surcharge
-        self.log.info("*** End of Job treatment ***")
-        return True
     
     def getStatus(self, processingId) -> str:
         """Return the status of a process launched on the BPPI server
@@ -119,32 +101,6 @@ class bppiPipeline:
         except Exception as e:
             self.log.error("waitForEndOfProcessing() Error -> " + str(e))
             return C.API_STATUS_ERROR
-    
-    def extract(self) -> pd.DataFrame: 
-        """This method must be surchaged and aims to collect the data from the datasource to provides the corresponding dataframe
-        Returns:
-            pd.DataFrame: Dataset in a pd.Dataframe object
-        """
-        return pd.DataFrame()
-
-    def transform(self, df) -> pd.DataFrame: 
-        """ Surcharge this method to enable modification in the Dataset after gathering the data and before uploding them in BPPI
-            By default just manage the event mapping.
-        Args:
-            df (pd.DataFrame): source dataset
-        Returns:
-            pd.DataFrame: altered dataset
-        """
-        return self.eventMap(df)
-
-    def load(self, dfDataset) -> bool:
-        """ Surcharge this method to upload a dataset (Pandas DataFrame) into BPPI
-        Args:
-            dfDataset (pd.DataFrame): DataFrame with the Data to upload
-        Returns:
-            bool: False if error
-        """
-        return True
     
     def eventMap(self, df) -> pd.DataFrame:
         """ Map the events with the dataset (in parameter df). 

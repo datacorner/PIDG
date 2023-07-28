@@ -25,13 +25,3 @@ class bppiPLRChorusExtract(bppiPLRCSVFile):
     @property
     def mandatoryParameters(self) -> str:
         return CHORUSFILE_MANDATORY_PARAM_LIST
-
-    def initialize(self) -> bool:
-        return super().initialize()
-
-    def transform(self, df) -> pd.DataFrame:
-        return super().transform(df)
-
-    def extract(self) -> pd.DataFrame: 
-        return super().extract()
-        

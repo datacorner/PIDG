@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from bppiapi.repository.bppiRepository import bppiRepository
+from bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
 from pipelines.readers.xesFileReader import xesFileReader
 
@@ -17,18 +17,9 @@ XES_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME]
 """
 class bppiPLRXESFile(bppiRepository):
 
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return XES_MANDATORY_PARAM_LIST
-
-    def initialize(self) -> bool:
-        return super().initialize()
-
-    def transform(self, df) -> pd.DataFrame:
-        return super().transform(df)
 
     def extract(self) -> pd.DataFrame: 
         """Read the XES file and build the dataframe

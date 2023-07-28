@@ -4,8 +4,8 @@ __license__ = "MIT"
 
 import requests
 import json
-from bppiapi.repository.repConfig import repConfig
-from bppiapi.uploadConfig import uploadConfig
+from bppi.repository.repConfig import repConfig
+from bppi.uploadConfig import uploadConfig
 from urllib import request
 import utils.constants as C
 

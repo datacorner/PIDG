@@ -23,9 +23,6 @@ ODBC_MANDATORY_PARAM_LIST = [C.PARAM_CONNECTIONSTRING,
                 - pipelines.repository.bppiPLRODBC
 """
 class bppiPLRODBC(bppiPLRCSVFile):
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return ODBC_MANDATORY_PARAM_LIST
@@ -33,12 +30,6 @@ class bppiPLRODBC(bppiPLRCSVFile):
     @property
     def query(self) -> str:
         return SQLBuilder(self.log, self.config).build()
-
-    def initialize(self) -> bool:
-        return super().initialize()
-    
-    def transform(self, df) -> pd.DataFrame:
-        return super().transform(df)
     
     def extract(self) -> pd.DataFrame: 
         """Read the DB by executing the query and build the dataframe

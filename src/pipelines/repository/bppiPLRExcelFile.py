@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from bppiapi.repository.bppiRepository import bppiRepository
+from bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
 from pipelines.readers.excelFileReader import excelFileReader
 
@@ -25,12 +25,6 @@ class bppiPLRExcelFile(bppiRepository):
     @property
     def mandatoryParameters(self) -> str:
         return EXCEL_MANDATORY_PARAM_LIST
-
-    def initialize(self) -> bool:
-        return super().initialize()
-
-    def transform(self, df) -> pd.DataFrame:
-        return super().transform(df)
 
     def extract(self) -> pd.DataFrame: 
         """Read the Excel file and build the dataframe
