@@ -4,8 +4,7 @@ __license__ = "MIT"
 
 import utils.constants as C
 from pipelines.repository.bppiPLRCSVFile import bppiPLRCSVFile
-from pipelines.builders.SQLBuilder import SQLBuilder
-import pyodbc
+from pipelines.readers.builders.SQLBuilder import SQLBuilder
 import pandas as pd
 from pipelines.readers.odbcReader import odbcReader
 

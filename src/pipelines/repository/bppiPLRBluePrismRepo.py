@@ -8,7 +8,7 @@ import pandas as pd
 import xml.etree.ElementTree as ET
 import warnings
 import numpy as np
-from pipelines.builders.blueprismSQLBuilder import blueprismSQLBuilder
+from pipelines.readers.builders.blueprismSQLBuilder import blueprismSQLBuilder
 import datetime
 
 warnings.filterwarnings('ignore')

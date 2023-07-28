@@ -2,7 +2,7 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-from bppi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
+from pipelines.bppi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
 from utils.log import log
 import pandas as pd
 import utils.constants as C

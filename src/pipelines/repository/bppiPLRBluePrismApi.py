@@ -4,7 +4,7 @@ __license__ = "MIT"
 
 import utils.constants as C
 import warnings
-from bppiapi.repository.bppiRepository import bppiRepository
+from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
 import requests 
 import urllib.parse
