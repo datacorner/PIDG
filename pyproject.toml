@@ -2,7 +2,7 @@
 name = "pyBPPIBridge"
 version = "0.4.10"
 authors = [
-  { name="Benoit Cayla", email="benoit@datacorner.fr" },
+  { name="Benoit Cayla", email="benoit@exypro.org" },
 ]
 description = "This solution builds a bridge between Blue Prism Process Intelligence (alias BPPI) and some external data sources (like files, databases via ODBC, SAP and Blue Prism)."
 readme = "README.md"
@@ -13,7 +13,7 @@ classifiers = [
   #   3 - Alpha
   #   4 - Beta
   #   5 - Production/Stable
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 2 - Beta",
     "Operating System :: OS Independent",
     "Environment :: Console",
     "Programming Language :: Python :: 3.10",
@@ -28,9 +28,7 @@ dependencies = [
 ]
 
 [project.urls]
-Source = "https://github.com/datacorner/pyBPPIBridge"
-"Bug Tracker" = "https://github.com/datacorner/pyBPPIBridge/issues"
-Homepage = "https://github.com/datacorner/pyBPPIBridge/wiki"
+Homepage = "https://exypro.org/docs/pybppibridge-documentation/"
 
 [project.scripts]
 bppibridge = "bppibridge:main"
