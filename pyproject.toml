@@ -1,6 +1,6 @@
 [project]
 name = "pyBPPIBridge"
-version = "0.4.10"
+version = "0.4.11"
 authors = [
   { name="Benoit Cayla", email="benoit@exypro.org" },
 ]
@@ -13,7 +13,7 @@ classifiers = [
   #   3 - Alpha
   #   4 - Beta
   #   5 - Production/Stable
-    "Development Status :: 2 - Beta",
+    "Development Status :: 4 - Beta",
     "Operating System :: OS Independent",
     "Environment :: Console",
     "Programming Language :: Python :: 3.10",
@@ -28,6 +28,7 @@ dependencies = [
 ]
 
 [project.urls]
+"Bug Tracker" = "https://exypro.org/Discussions/forum/pybppibridge-solution/"
 Homepage = "https://exypro.org/docs/pybppibridge-documentation/"
 
 [project.scripts]
