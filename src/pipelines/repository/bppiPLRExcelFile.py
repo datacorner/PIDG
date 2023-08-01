@@ -19,9 +19,6 @@ EXCEL_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME,
 """
 class bppiPLRExcelFile(bppiRepository):
 
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return EXCEL_MANDATORY_PARAM_LIST

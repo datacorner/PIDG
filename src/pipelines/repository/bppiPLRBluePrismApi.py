@@ -27,18 +27,9 @@ warnings.filterwarnings('ignore')
             - pipelines.repository.bppiPLRBluePrismApi
 """
 class bppiPLRBluePrismApi(bppiRepository):
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return BP_MANDATORY_PARAM_LIST
-
-    def initialize(self) -> bool:
-        return super().initialize()
-
-    def transform(self, df) -> pd.DataFrame:
-        return super().transform(df)
 
     def __buildAPIURL(self):
         return self.config.getParameter(C.PARAM_BPAPI_API_URL, C.EMPTY) + C.PBAPI_VER

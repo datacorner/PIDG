@@ -2,11 +2,9 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-from pipelines.bppi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
 from utils.log import log
 import pandas as pd
 import utils.constants as C
-import time
 from pipelines.pipeline import pipeline
 
 MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
@@ -35,72 +33,6 @@ class bppiPipeline(pipeline):
         except Exception as e:
             self.log.error("checkParameters() Error -> " + str(e))
             return False
-        
-    def initialize(self) -> bool:
-        """Initialize the Class instance by gathering the BPPI repository infos.
-            * initialize the logger
-            * check the mandatory parameters
-            * init the API (get the BPPI Repository infos)
-        Returns:
-            bool: False if error
-        """
-        try:
-            # Init logger
-            logfilename = self.config.getParameter(C.PARAM_LOGFOLDER, "") + self.config.getParameter(C.PARAM_LOGFILENAME, C.TRACE_FILENAME)
-            print("Log file: {}".format(logfilename))
-            level = self.config.getParameter(C.PARAM_LOGLEVEL, C.TRACE_DEFAULT_LEVEL)
-            format = self.config.getParameter(C.PARAM_LOGFORMAT, C.TRACE_DEFAULT_FORMAT)
-            self.log = log(__name__, logfilename, level, format)
-            # Init BPPI APIs
-            self.log.info("*** Beggining of Job treatment ***")
-            if (not self.checkParameters()):
-                raise Exception("Some mandatory parameters are missing")
-            return True
-        except Exception as e:
-            self.log.error("initialize() Error -> " + str(e))
-            return False
-    
-    def getStatus(self, processingId) -> str:
-        """Return the status of a process launched on the BPPI server
-        Args:
-            processingId (_type_): ID of the BPPI Process
-        Returns:
-            str: Process status (from BPPI server)
-        """
-        try:
-            api = bppiApiRepositoryWrapper(self.config.getParameter(C.PARAM_BPPITOKEN), 
-                                            self.config.getParameter(C.PARAM_BPPIURL))
-            api.log = self.log
-            return api.getProcessingStatus(processingId)
-        except Exception as e:
-            self.log.error("getStatus() Error -> " + str(e))
-            return C.API_STATUS_ERROR
-
-    def waitForEndOfProcessing(self, processId) -> str:
-        """Wait for the end of the BPPI process execution
-        Args:
-            processId (_type_): ID of the BPPI Process
-        Returns:
-            str: Final Status
-        """
-        try:
-            self.log.info("Wait for the end of a process execution")
-            EndOfWait = True
-            nbIterations = 0
-            api = bppiApiRepositoryWrapper(self.config.getParameter(C.PARAM_BPPITOKEN), 
-                                            self.config.getParameter(C.PARAM_BPPIURL))
-            api.log = self.log
-            while (EndOfWait):
-                # 5 - Check the status to veriify if the task is finished
-                status = self.getStatus(processId)
-                if ((status != C.API_STATUS_IN_PROGRESS) or (nbIterations > C.API_DEF_NB_ITERATION_MAX)):
-                    EndOfWait = False
-                time.sleep(C.API_DEF_WAIT_DURATION_SEC)
-                nbIterations += 1
-            return status
-        except Exception as e:
-            self.log.error("waitForEndOfProcessing() Error -> " + str(e))
-            return C.API_STATUS_ERROR
     
     def eventMap(self, df) -> pd.DataFrame:
         """ Map the events with the dataset (in parameter df). 

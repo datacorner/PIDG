@@ -35,7 +35,6 @@ class bppiPLRODBC(bppiPLRCSVFile):
         Returns:
             pd.DataFrame: Dataframe with the source data
         """
-        tableResult = pd.DataFrame()
         try:
             odbc = self.config.getParameter(C.PARAM_CONNECTIONSTRING)
             reader = odbcReader(self.log)

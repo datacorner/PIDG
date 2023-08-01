@@ -19,9 +19,6 @@ CHORUSFILE_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME,
 """
 class bppiPLRChorusExtract(bppiPLRCSVFile):
 
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return CHORUSFILE_MANDATORY_PARAM_LIST

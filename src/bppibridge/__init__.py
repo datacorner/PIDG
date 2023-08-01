@@ -5,11 +5,15 @@ __license__ = "MIT"
 import argparse
 from pipelines.pipelineFactory import pipelineFactory
 from config.cmdLineConfig import cmdLineConfig
+from utils.log import log
+import utils.constants as C
 
 def main() -> None:
 	"""Entry point for the application script"""
 	
 	# Get configuration from cmdline & ini file
-	config, src = cmdLineConfig.readIni(argparse.ArgumentParser())
+	config = cmdLineConfig.readIni(argparse.ArgumentParser())
+	# Get the logger
+	log = pipelineFactory.getLogger(config)
 	# Process 
-	pipelineFactory(src, config).createAndExecute()
+	pipelineFactory(config, log).process()

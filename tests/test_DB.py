@@ -18,9 +18,9 @@ class testODBCFiles(unittest.TestCase):
     def processTest(self, configfile):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
-        config, src = cmdLineConfig.emulate_readIni(sourcetype="odbc", 
-                                                    configfile=configfile) 
-        return pipelineFactory(src, config).createAndExecute()
+        config = cmdLineConfig.emulate_readIni(configfile=configfile) 
+        log = pipelineFactory.getLogger(config)
+        return pipelineFactory(config, log).process()
 
     def test_odbc_sqls(self):
         self.e, self.t, self.l = self.processTest("./tests/config/config-odbc-sqls.ini")

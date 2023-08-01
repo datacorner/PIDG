@@ -18,9 +18,9 @@ class testSAP(unittest.TestCase):
     def processTest(self):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
-        config, src = cmdLineConfig.emulate_readIni(sourcetype="saptable", 
-                                                    configfile="./tests/config/config-sap.ini") 
-        return pipelineFactory(src, config).createAndExecute()
+        config = cmdLineConfig.emulate_readIni(configfile="./tests/config/config-sap.ini") 
+        log = pipelineFactory.getLogger(config)
+        return pipelineFactory(config, log).process()
 
     def test_sap_1(self):
         self.e, self.t, self.l = self.processTest()

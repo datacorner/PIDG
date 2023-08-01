@@ -6,11 +6,12 @@ from config.appConfig import appConfig
 import utils.constants as C
 from utils.log import log
 import pandas as pd
+MANDATORY_PARAM_LIST = []
 
 class pipeline:
-    def __init__(self, config):
+    def __init__(self, config, log):
         self.__config = config          # All the configuration parameters
-        self.__trace = None             # Logger
+        self.__log = log                # Logger
 
     # Contains all the config parameters (from the INI file)
     @property
@@ -26,27 +27,36 @@ class pipeline:
     
     @property
     def log(self) -> log:
-        return self.__trace
+        return self.__log
     @log.setter   
     def log(self, value):
-        self.__trace = value
+        self.__log = value
 
     def checkParameters(self) -> bool:
         """Check the mandatory parameters
         Returns:
             bool: False si at least one mandatory param is missing
         """
+        self.log.info("*** Check parameters treatment ***")
         return True
     
     def initialize(self) -> bool:
-        """Initialize the Class instance for the pipeline
+        """Initialize the Class instance by gathering the BPPI repository infos.
             * initialize the logger
             * check the mandatory parameters
-            * iother inits ...
+            * init the API (get the BPPI Repository infos)
         Returns:
             bool: False if error
         """
-        return True
+        try:
+            # Checking parameters
+            self.log.info("*** Beggining of Job treatment ***")
+            if (not self.checkParameters()):
+                raise Exception("Some mandatory parameters are missing")
+            return True
+        except Exception as e:
+            self.log.error("initialize() Error -> " + str(e))
+            return False
 
     def terminate(self) -> bool:
         # For surcharge
@@ -58,6 +68,7 @@ class pipeline:
         Returns:
             pd.DataFrame: Dataset in a pd.Dataframe object
         """
+        self.log.info("*** Extraction treatment ***")
         return pd.DataFrame()
 
     def transform(self, df) -> pd.DataFrame: 
@@ -68,6 +79,7 @@ class pipeline:
         Returns:
             pd.DataFrame: altered dataset
         """
+        self.log.info("*** Data Transformation treatment ***")
         return self.eventMap(df)
 
     def load(self, dfDataset) -> bool:
@@ -77,4 +89,13 @@ class pipeline:
         Returns:
             bool: False if error
         """
+        self.log.info("*** Loading treatment ***")
+        return True
+    
+    def afterLoad(self) -> bool:
+        """ Surcharge this method to manage tasks after loading the dataset into BPPI
+        Returns:
+            bool: False if error
+        """
+        self.log.info("*** After Loading treatment ***")
         return True

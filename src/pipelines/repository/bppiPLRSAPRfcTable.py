@@ -39,25 +39,16 @@ class bppiPLRSAPRfcTable(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            ASHOST = self.config.getParameter(C.PARAM_SAP_ASHOST, C.EMPTY) 
-            CLIENT = self.config.getParameter(C.PARAM_SAP_CLIENT, C.EMPTY) 
-            SYSNR = self.config.getParameter(C.PARAM_SAP_SYSNR, C.EMPTY)
-            USER = self.config.getParameter(C.PARAM_SAP_USER, C.EMPTY) 
-            PASSWD = self.config.getParameter(C.PARAM_SAP_PASSWD, C.EMPTY)
-            SAPROUTER = self.config.getParameter(C.PARAM_SAP_ROUTER, C.EMPTY)
-            field_names = self.config.getParameter(C.PARAM_SAP_RFC_FIELDS, C.EMPTY).split(',')
-            table_name = self.config.getParameter(C.PARAM_SAP_RFC_TABLE)
-            row_limit = int(self.config.getParameter(C.PARAM_SAP_RFC_ROWCOUNT, "0"))
             sap = sapRFCTableReader(self.log)
-            sap.setConnectionParams(ahost=ASHOST, 
-                                    client=CLIENT, 
-                                    sysnr=SYSNR, 
-                                    user=USER, 
-                                    pwd=PASSWD, 
-                                    router=SAPROUTER)
-            sap.setImportParameters(rfcfields=field_names,
-                                    rfctable=table_name,
-                                    rowcount=row_limit)
+            sap.setConnectionParams(ahost=self.config.getParameter(C.PARAM_SAP_ASHOST, C.EMPTY), 
+                                    client=self.config.getParameter(C.PARAM_SAP_CLIENT, C.EMPTY), 
+                                    sysnr=self.config.getParameter(C.PARAM_SAP_SYSNR, C.EMPTY), 
+                                    user=self.config.getParameter(C.PARAM_SAP_USER, C.EMPTY), 
+                                    pwd=self.config.getParameter(C.PARAM_SAP_PASSWD, C.EMPTY), 
+                                    router=self.config.getParameter(C.PARAM_SAP_ROUTER, C.EMPTY))
+            sap.setImportParameters(rfcfields=self.config.getParameter(C.PARAM_SAP_RFC_FIELDS, C.EMPTY).split(','),
+                                    rfctable=self.config.getParameter(C.PARAM_SAP_RFC_TABLE),
+                                    rowcount=int(self.config.getParameter(C.PARAM_SAP_RFC_ROWCOUNT, "0")))
             if (not sap.read()):
                 raise Exception("Error while reading the XES file")
             return sap.content

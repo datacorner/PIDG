@@ -27,18 +27,12 @@ BP_MANDATORY_PARAM_LIST = [C.PARAM_CONNECTIONSTRING,
                     - pipelines.repository.bppiPLRBluePrismRepo
 """
 class bppiPLRBluePrismRepo(bppiPLRODBC):
-    def __init__(self, config):
-        super().__init__(config)
-
     @property
     def mandatoryParameters(self) -> str:
         return BP_MANDATORY_PARAM_LIST
     @property
     def query(self) -> str:
         return self.__buildQuery()
-    
-    def initialize(self) -> bool:
-        return super().initialize()
 
     def __getDeltaTag(self):
         """ Get the last load date to use for the delta loading (when requested)

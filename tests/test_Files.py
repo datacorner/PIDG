@@ -15,21 +15,16 @@ class testCSVFiles(unittest.TestCase):
         print("**** E:{} T:{} L:{} ****".format(self.e, self.t, self.l))
         print("End of CSV import Test")
 
-    def processTest(self, filename, sep):
+    def processTest(self):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
-        config, src = cmdLineConfig.emulate_readIni(sourcetype="csv", 
-                                                    configfile="./tests/config/config-csv.ini",
-                                                    filename=filename,
-                                                    sep=sep) 
-        return pipelineFactory(src, config).createAndExecute()
+        config = cmdLineConfig.emulate_readIni(configfile="./tests/config/config-csv.ini")
+        log = pipelineFactory.getLogger(config)
+        return pipelineFactory(config, log).process()
 
-    def test_csv_1_generateMap(self):
-        filename = "./tests/data/test.csv"
-        sep = ","
-        self.e, self.t, self.l = self.processTest(filename, sep)
+    def test_csv_1(self):
+        self.e, self.t, self.l = self.processTest()
         self.assertTrue(self.e==1394 and self.t==1394 and self.l==1394)
-
 
 class testXESFiles(unittest.TestCase):
     def setUp(self):
@@ -39,17 +34,15 @@ class testXESFiles(unittest.TestCase):
         print("**** E:{} T:{} L:{} ****".format(self.e, self.t, self.l))
         print("End of XES import Test")
 
-    def processTest(self, filename):
+    def processTest(self):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
-        config, src = cmdLineConfig.emulate_readIni(sourcetype="xes", 
-                                                    configfile="./tests/config/config-xes.ini",
-                                                    filename=filename) 
-        return pipelineFactory(src, config).createAndExecute()
+        config = cmdLineConfig.emulate_readIni(configfile="./tests/config/config-xes.ini")
+        log = pipelineFactory.getLogger(config) 
+        return pipelineFactory(config, log).process()
 
     def test_xes_1(self):
-        filename = "./tests/data/test.xes"
-        self.e, self.t, self.l = self.processTest(filename)
+        self.e, self.t, self.l = self.processTest()
         self.assertTrue(self.e==1394 and self.t==1394 and self.l==1394)
 
 class testExcelFiles(unittest.TestCase):
@@ -63,11 +56,9 @@ class testExcelFiles(unittest.TestCase):
     def processTest(self, filename, sheet):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
-        config, src = cmdLineConfig.emulate_readIni(sourcetype="excel", 
-                                                    configfile="./tests/config/config-excel.ini",
-                                                    filename=filename,
-                                                    sheet=sheet) 
-        return pipelineFactory(src, config).createAndExecute()
+        config = cmdLineConfig.emulate_readIni(configfile="./tests/config/config-excel.ini") 
+        log = pipelineFactory.getLogger(config)
+        return pipelineFactory(config, log).process()
 
     def test_excel_1(self):
         filename = "./tests/data/test.xlsx"

@@ -1,3 +1,21 @@
+[source]
+# Separator for files (CSV only)
+separator=,
+# filename (xes, csv, excel, etc.)
+filename=tests/data/test.csv
+# delta extraction from date (Format YYYY-MM-DD HH:MM:SS)
+fromdate=
+# delta extraction to date (Format YYYY-MM-DD HH:MM:SS)
+todate=
+# excel sheet name
+sheet=
+
+[pipeline]
+# default path where the pipelines are stored (optional)
+path=pipelines.repository
+# pipelin class name / Must derive from the pipeline class
+classname=
+
 [database]
 # SQL Server ODBC Connection string
 connectionstring=DRIVER={ODBC Driver 18 for SQL Server};SERVER=localhost\SQLEXPRESS;DATABASE=blueprism;UID=*;PWD=***;ENCRYPT=No

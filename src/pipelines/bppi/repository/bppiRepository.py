@@ -7,13 +7,14 @@ from pipelines.bppi.bppiPipeline import bppiPipeline
 import utils.constants as C
 from pipelines.bppi.repository.repConfig import repConfig
 import json
+import time
 
 MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                         C.PARAM_BPPIURL]
 
 class bppiRepository(bppiPipeline):
-    def __init__(self, config):
-        super().__init__(config)
+    def __init__(self, config, log):
+        super().__init__(config, log)
         self.__repositoryInfos = None   # BPPI Repository infos (gathered from the bppi server)
 
     @property
@@ -51,6 +52,51 @@ class bppiRepository(bppiPipeline):
         except Exception as e:
             self.log.error("initialize() Error -> " + str(e))
             return False
+
+    def getStatus(self, processingId) -> str:
+        """Return the status of a process launched on the BPPI server
+        Args:
+            processingId (_type_): ID of the BPPI Process
+        Returns:
+            str: Process status (from BPPI server)
+        """
+        try:
+            api = bppiApiRepositoryWrapper(self.config.getParameter(C.PARAM_BPPITOKEN), 
+                                            self.config.getParameter(C.PARAM_BPPIURL))
+            api.log = self.log
+            return api.getProcessingStatus(processingId)
+        except Exception as e:
+            self.log.error("getStatus() Error -> " + str(e))
+            return C.API_STATUS_ERROR
+
+    def waitForEndOfProcessing(self, processId) -> str:
+        """Wait for the end of the BPPI process execution
+        Args:
+            processId (_type_): ID of the BPPI Process
+        Returns:
+            str: Final Status
+        """
+        try:
+            self.log.info("Wait for the end of a process execution")
+            EndOfWait = True
+            nbIterations = 0
+            api = bppiApiRepositoryWrapper(self.config.getParameter(C.PARAM_BPPITOKEN), 
+                                            self.config.getParameter(C.PARAM_BPPIURL))
+            api.log = self.log
+            while (EndOfWait):
+                # 5 - Check the status to veriify if the task is finished
+                status = self.getStatus(processId)
+                if ((status != C.API_STATUS_IN_PROGRESS) or (nbIterations > C.API_DEF_NB_ITERATION_MAX)):
+                    EndOfWait = False
+                time.sleep(C.API_DEF_WAIT_DURATION_SEC)
+                nbIterations += 1
+            return status
+        except Exception as e:
+            self.log.error("waitForEndOfProcessing() Error -> " + str(e))
+            return C.API_STATUS_ERROR
+
+    def afterLoad(self) -> bool:
+        return self.executeToDo()
 
     def executeToDo(self) -> bool:
         """Execute a BPPI TO DO (be careful as this TO DO must exists)

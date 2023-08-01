@@ -4,21 +4,53 @@ __license__ = "MIT"
 
 import utils.constants as C
 import importlib
+from .pipeline import pipeline
+from utils.log import log
 
 class pipelineFactory:
-	def __init__(self, datasource, config):
+	def __init__(self, config, log):
 		self.__config = config
-		self.__datasource = datasource
-    
+		self.__log = log
+
 	@property
 	def config(self):
 		return self.__config
 	@property
-	def datasource(self):
-		return self.__datasource
+	def log(self) -> log:
+		return self.__log
 	
-	def createAndExecute(self):
-		""" Initialize the process and execute
+	@staticmethod
+	def getLogger(config) -> log:
+		if (config != None):
+			# Init logger
+			logfilename = config.getParameter(C.PARAM_LOGFOLDER, "") + config.getParameter(C.PARAM_LOGFILENAME, C.TRACE_FILENAME)
+			print("Log file: {}".format(logfilename))
+			level = config.getParameter(C.PARAM_LOGLEVEL, C.TRACE_DEFAULT_LEVEL)
+			format = config.getParameter(C.PARAM_LOGFORMAT, C.TRACE_DEFAULT_FORMAT)
+			return log(__name__, logfilename, level, format)
+		else:
+			raise Exception ("Configuration failed, impossible to create the logger.")
+
+	def process(self):
+		""" Initialize the process and execute the pipeline
+		Returns:
+			int: Number of rows read
+			int: Number of rows transformed
+			int: Number of rows loaded
+		"""
+		try:
+			# INSTANCIATE ONLY THE NEEDED CLASS / DATA SOURCE TYPE
+			self.log.info("BPPI Bridge initialisation ...")
+			pipeline = self.create()
+			if (pipeline == None):
+				raise Exception ("The Data pipeline cannot be created")
+		except Exception as e:
+			self.log.error("Error> pipelineFactory.process(): The bridge cannot be initialized: {}".format(str(e)))
+	
+		return self.execute(pipeline=pipeline)
+	
+	def execute(self, pipeline):
+		""" Execute the pipeline
 		Returns:
 			int: Number of rows read
 			int: Number of rows transformed
@@ -26,17 +58,8 @@ class pipelineFactory:
 		"""
 		E_counts, T_counts, L_counts = 0, 0, 0
 		try:
-			# INSTANCIATE ONLY THE NEEDED CLASS / DATA SOURCE TYPE
-			print("Info> BPPI Bridge initialisation ...")
-			pipeline = self.create()
-			if (pipeline == None):
-				raise Exception ("The Data pipeline cannot be created")
-		except Exception as e:
-			print("Error> pipelineFactory.createAndExecute(): The bridge cannot be initialized: {}".format(str(e)))
-		
-		try:
 			# PROCESS THE DATA
-			if (pipeline.initialize()):
+			if (pipeline.initialize()): # init logs here ...
 				pipeline.log.info("The BPPI Bridge has been initialized successfully")
 				pipeline.log.info("Extract data from Data Source ...")
 				df = pipeline.extract()	# EXTRACT (E of ETL)
@@ -52,23 +75,25 @@ class pipelineFactory:
 					if (df.empty != True): 
 						# LOAD (L of ETL)
 						pipeline.log.info("Load data into the BPPI Repository table ...")
-						if pipeline.load(df):
+						if pipeline.load(df): # LOAD (L of ETL)
 							L_counts = T_counts
 							pipeline.log.info("Data loaded successfully")
 							if (self.config.getParameter(C.PARAM_BPPITODOACTIVED, C.NO) == C.YES):
 								pipeline.log.info("Execute BPPI To Do ...")
-								if (pipeline.executeToDo()):
+								if (pipeline.afterLoad()):
 									pipeline.log.info("BPPI To Do executed successfully")
-				pipeline.terminate()
+				pipeline.log.info("Data Counts -> E:{} T:{} L:{}".format(E_counts, T_counts, L_counts))
 			else:
-				print("pipelineFactory.createAndExecute(): The Data pipeline has not been initialized properly")
+				self.log.error("pipelineFactory.createAndExecute(): The Data pipeline has not been initialized properly")
+			
+			pipeline.terminate()
 			return E_counts, T_counts, L_counts
 		
 		except Exception as e:
 			pipeline.log.error("pipelineFactory.createAndExecute(): Error when processing the data: {}".format(str(e)))
 			return E_counts, T_counts, L_counts
 
-	def create(self):
+	def create(self) -> pipeline:
 		""" This function dynamically instanciate the right data pipeline (manages ETL) class to create a pipeline object. 
 			This to avoid in loading all the connectors (if any of them failed for example) when making a global import, 
 			by this way only the needed import is done on the fly
@@ -79,30 +104,15 @@ class pipelineFactory:
 				Object: Data Source Object
 		"""
 		try:
-			if (self.config == None): 
-				raise Exception("The configuration is not available or is invalid.")
-			if (self.datasource == None): 
-				raise Exception("The datasource is not correctly specified or is invalid.")
-			if (self.datasource == C.PARAM_SRCTYPE_VALCSV):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRCSVFile").bppiPLRCSVFile
-			elif (self.datasource == C.PARAM_SRCTYPE_VALXES):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRXESFile").bppiPLRXESFile
-			elif (self.datasource == C.PARAM_SRCTYPE_VALXLS):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRExcelFile").bppiPLRExcelFile
-			elif (self.datasource == C.PARAM_SRCTYPE_VALODBC):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRODBC").bppiPLRODBC
-			elif (self.datasource == C.PARAM_SRCTYPE_VALBP):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRBluePrismRepo").bppiPLRBluePrismRepo
-			elif (self.datasource == C.PARAM_SRCTYPE_VALBPAPI):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRBluePrismApi").bppiPLRBluePrismApi
-			elif (self.datasource == C.PARAM_SRCTYPE_VALSAPTABLE):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRSAPRfcTable").bppiPLRSAPRfcTable
-			elif (self.datasource == C.PARAM_SRCTYPE_CHORUSFILE):
-				datasourceObject = importlib.import_module(C.PIPELINE_FOLDER + "bppiPLRChorusExtract").bppiPLRChorusExtract
-			else:
-				raise Exception ("Error when loading the Data Source Factory in pipeline folder")
-			return datasourceObject(self.config)
+			# Get the pipeline class to instantiate from the config
+			pipelinePath = self.config.getParameter(C.PARAM_PIPELINE_PATH, C.PIPELINE_FOLDER)
+			pipelineClass = self.config.getParameter(C.PARAM_PIPELINE_CLASSNAME, C.PIPELINE_FOLDER)
+
+			# Instantiate the pipeline object
+			datasourceObject = importlib.import_module(pipelinePath + "." + pipelineClass)
+			pipelineClass = getattr(datasourceObject, pipelineClass)
+			return pipelineClass(self.config, self.log)
 		
 		except Exception as e:
-			print("pipelineFactory.create(): Error when loading the Data Source Factory: {}".format(str(e)))
+			self.log.error("pipelineFactory.create(): Error when loading the Data Source Factory: {}".format(str(e)))
 			return None
