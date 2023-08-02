@@ -20,7 +20,8 @@ class testEventMap(unittest.TestCase):
         print("Process Test")
 	    # Get configuration from cmdline & ini file
         config = cmdLineConfig.emulate_readIni(configfile=config) 
-        return pipelineFactory(config).process()
+        log = pipelineFactory.getLogger(config) 
+        return pipelineFactory(config, log).process()
 
     def test_csv_Generate_Map(self):
         evtmapfile = "tests/data/evtmap-gen.csv"
@@ -34,7 +35,6 @@ class testEventMap(unittest.TestCase):
         self.assertTrue(df.shape[0]==29)
 
     def test_csv_check_Map(self):
-        filename = "./tests/data/test.csv"
         configfile="./tests/config/config-csv-evtmap-map.ini"
         self.e, self.t, self.l = self.processTest(configfile)
         self.assertTrue(self.e==1394 and self.t==1130 and self.l==1130)
