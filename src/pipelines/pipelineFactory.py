@@ -79,7 +79,7 @@ class pipelineFactory:
 							L_counts = T_counts
 							pipeline.log.info("Data loaded successfully")
 							if (self.config.getParameter(C.PARAM_BPPITODOACTIVED, C.NO) == C.YES):
-								pipeline.log.info("Execute BPPI To Do ...")
+								pipeline.log.info("Execute one or more BPPI <ToDo> ...")
 								if (pipeline.afterLoad()):
 									pipeline.log.info("BPPI To Do executed successfully")
 				pipeline.log.info("Data Counts -> E:{} T:{} L:{}".format(E_counts, T_counts, L_counts))

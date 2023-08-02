@@ -14,7 +14,7 @@ sheet=
 # default path where the pipelines are stored (optional)
 path=pipelines.repository
 # pipelin class name / Must derive from the pipeline class
-classname=
+classname=bppiPLRBluePrismRepo
 
 [database]
 # SQL Server ODBC Connection string

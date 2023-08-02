@@ -9,7 +9,9 @@ YES = "yes"
 NO = "no"
 EMPTY = ""
 DEFCSVSEP = ","
-PIPELINE_FOLDER = 'pipelines.repository.'                # Pipeline datasource classes
+
+# Pipeline datasource default classes storage
+PIPELINE_FOLDER = 'pipelines.repository.' 
 
 # Configuration type
 CONFIG_SOURCE_NAME = "configsource"
@@ -17,28 +19,14 @@ CONFIG_SOURCE_SQ3 = "sqlite3"
 CONFIG_SOURCE_INI = "ini"   
 
 # Parameter Names (INI/Command line)
-#PARAM_SRCTYPE = "source.type"                           # Data source type {csv|excel|odbc|blueprism|...}
-
-PARAM_SRCTYPE_VALCSV = "csv"                            # sourcetype = csv
-PARAM_SRCTYPE_VALXES = "xes"                            # sourcetype = xes
-PARAM_SRCTYPE_VALODBC = "odbc"                          # sourcetype = odbc
-PARAM_SRCTYPE_VALBP = "bprepo"                          # sourcetype = blueprism Repository
-PARAM_SRCTYPE_VALBPAPI = "bpapi"                        # sourcetype = blueprism api
-PARAM_SRCTYPE_VALXLS = "excel"                          # sourcetype = excel
-PARAM_SRCTYPE_VALSAPTABLE = "saptable"                  # sourcetype = SAP RFC Table
-PARAM_SRCTYPE_CHORUSFILE = "chfile"                     # sourcetype = SS&C Chorus Extraction file
-
 PARAM_PIPELINE_PATH = "pipeline.path"                   # default path where the pipelines are stored (optional)
 PARAM_PIPELINE_CLASSNAME = "pipeline.classname"         # pipeline class name / must derive from the pipeline class
-
 PARAM_FILENAME = "source.filename"                      # {csv|xes} Source file dataset
 PARAM_CSV_SEPARATOR ="source.separator"                 # {csv} CSV fields separator (by default comma)
 PARAM_CONFIGFILE = "configfile"                         # {odbc|bprepo} Config / INI file
 PARAM_EXCELSHEETNAME = "source.sheet"                   # {excel} Excel spreadsheet name
 PARAM_FROMDATE = "source.fromdate"                      # {bprepo}From Date (delta extraction)
 PARAM_TODATE = "source.todate"                          # {bprepo}To Date (delta extraction)
-PARAM_SQ_ID = "id"                                      # When using SQLite config / ID of the config
-# Parameters which can be in the INI file
 PARAM_BPPITOKEN = "bppi.token"                          # {csv|xes|excel|odbc|bprepo} BPPI Token
 PARAM_BPPIURL = "bppi.url"                              # {csv|xes|excel|odbc|bprepo} BPPI URL
 PARAM_CONNECTIONSTRING = "database.connectionstring"    # {ODBC/Blue Prism} ODBC Connection String
@@ -129,5 +117,6 @@ COL_STAGE_ID = "STAGE_ID"
 COL_OBJECT_TAB = "OBJECT_TAB"
 
 # SQLite configuration SPecifics
+PARAM_SQ_ID = "id"                                  # When using SQLite config / ID of the config
 SQLITE_GETCONFIG = "SELECT * FROM VIEW_GET_FULLCONFIG_BLUEPRISM_REPO WHERE ID={}"
        

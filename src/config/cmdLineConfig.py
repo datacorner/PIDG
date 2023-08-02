@@ -30,22 +30,7 @@ class cmdLineConfig:
 			args = vars(parser.parse_args())
 			# Load configuration via the INI file
 			config.loadFromSQLite(args[C.PARAM_FILENAME], args[C.PARAM_SQ_ID])
-
-			#src = config.getParameter(C.PARAM_SRCTYPE)
-			# Config "exceptions" ...
-			file_management = (src == C.PARAM_SRCTYPE_VALCSV or 
-							src == C.PARAM_SRCTYPE_VALXLS or 
-							src == C.PARAM_SRCTYPE_VALXES or 
-							src == C.PARAM_SRCTYPE_CHORUSFILE)
-			if (file_management):
-				# For File (CSV/XES/Excel) load only, takes the CLI args and put them in the config object
-				config.addParameter(C.PARAM_FILENAME, args[C.PARAM_FILENAME])
-				if (src == C.PARAM_SRCTYPE_VALCSV or src == C.PARAM_SRCTYPE_CHORUSFILE):
-					config.addParameter(C.PARAM_CSV_SEPARATOR, args[C.PARAM_CSV_SEPARATOR])
-				if (src == C.PARAM_SRCTYPE_VALXLS):
-					config.addParameter(C.PARAM_EXCELSHEETNAME, args[C.PARAM_EXCELSHEETNAME])
 			return config
-
 		except Exception as e:
 			print(e)
 			parser.print_help()

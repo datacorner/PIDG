@@ -6,6 +6,9 @@ import utils.constants as C
 import pandas as pd
 from .Reader import Reader 
 import pyodbc
+import warnings
+
+warnings.filterwarnings('ignore')
 
 class odbcReader(Reader):
     def setConnectionParams(self, connectionstring, query):

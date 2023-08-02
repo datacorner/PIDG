@@ -15,5 +15,5 @@ def main() -> None:
 	config = cmdLineConfig.readIni(argparse.ArgumentParser())
 	# Get the logger
 	log = pipelineFactory.getLogger(config)
-	# Process 
+	# Execute the pipeline 
 	pipelineFactory(config, log).process()
