@@ -28,7 +28,9 @@ class bppiPLRODBC(bppiPLRCSVFile):
 
     @property
     def query(self) -> str:
-        return SQLBuilder(self.log, self.config).build()
+        return SQLBuilder(self.log, 
+                          self.config.getParameter(C.PARAM_QUERY),
+                          self.config.getParameter(C.CONFIG_SOURCE_NAME, C.CONFIG_SOURCE_INI)).build()
     
     def extract(self) -> pd.DataFrame: 
         """Read the DB by executing the query and build the dataframe

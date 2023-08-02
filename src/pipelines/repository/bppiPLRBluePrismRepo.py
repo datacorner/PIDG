@@ -30,9 +30,6 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
     @property
     def mandatoryParameters(self) -> str:
         return BP_MANDATORY_PARAM_LIST
-    @property
-    def query(self) -> str:
-        return self.__buildQuery()
 
     def __getDeltaTag(self):
         """ Get the last load date to use for the delta loading (when requested)
@@ -62,7 +59,8 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
             except:
                 self.log.error("__updDeltaLoadLastDate() -> Unable to write the tagged new delta date")
 
-    def __buildQuery(self) -> str:
+    @property
+    def query(self) -> str:
         """Build the SQL Query to get the BP logs against the BP repository
             The BP Logs SQL qeury is stored in the bp.config file and can be customized with several args:
                 * {attrxml}: Name of the INPUT/OUTPUT attributes columns (XML format)
@@ -77,8 +75,16 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
             # Get the last delta load if needed:
             lastDeltaDate = self.__getDeltaTag()
             # Build the Query
-            sqlBuilder = blueprismSQLBuilder(self.log, self.config)
-            sqlBuilder.deltaDate = lastDeltaDate
+            sqlBuilder = blueprismSQLBuilder(log=self.log,
+                                            query=self.config.getParameter(C.PARAM_QUERY),
+                                            configtype=self.config.getParameter(C.CONFIG_SOURCE_NAME, C.CONFIG_SOURCE_INI))
+            sqlBuilder.setConnectionParams(bpStageTypes=self.config.getParameter(C.PARAM_BPSTAGETYPES, "0"),
+                                           processName=self.config.getParameter(C.PARAM_BPPROCESSNAME),
+                                           includeVBO=self.config.getParameter(C.PARAM_BPINCLUDEVBO, C.YES),
+                                           unicode=self.config.getParameter(C.PARAM_BPUNICODE),
+                                           fromDate=self.config.getParameter(C.PARAM_FROMDATE),
+                                           toDate=self.config.getParameter(C.PARAM_TODATE),
+                                           deltaDate=lastDeltaDate)
             sql = sqlBuilder.build()
             # Update the date for the next delta load
             self.__updDeltaTag()
@@ -174,7 +180,7 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
         except Exception as e:
             self.log.error("__getAttributesFromLogs() -> Unable to get attributes from the Blue Prism logs " + str(e))
             return df
-        
+    
     def transform(self, df) -> pd.DataFrame:
         """Alter the collected data (from the BP Repository) by managing the attributes (stored in a XML format)
         Args:

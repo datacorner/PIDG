@@ -7,17 +7,14 @@ import pathlib
 from string import Template
 
 class SQLBuilder():
-    def __init__(self, log, config):
+    def __init__(self, log, query, configtype=C.CONFIG_SOURCE_INI):
         self.__log = log
-        self.__config = config
-        pass
+        self.__query = query    # self.config.getParameter(C.PARAM_QUERY)
+        self.__configtype = configtype # self.config.getParameter(C.CONFIG_SOURCE_NAME, C.EMPTY)
 
     @property
     def log(self):
         return self.__log
-    @property
-    def config(self):
-        return self.__config
     
     def getTemplate(self) -> Template:
         """ returns the template SQL file
@@ -27,13 +24,12 @@ class SQLBuilder():
             Template: Return the String template
         """
         try:
-            content = self.config.getParameter(C.PARAM_QUERY)
-            if (self.config.getParameter(C.CONFIG_SOURCE_NAME, C.EMPTY) == C.CONFIG_SOURCE_SQ3):
+            if (self.__configtype == C.CONFIG_SOURCE_SQ3):
                 # If config from SQLite or DB, the content is inside the field
-                return Template(content)
+                return Template(self.__query)
             else:
                 # If config from INI file, the content is inside a file
-                return Template(pathlib.Path(content).read_text())
+                return Template(pathlib.Path(self.__query).read_text())
         except Exception as e:
             self.log.error("getTemplate() -> Error when reading the SQL template " + str(e))
             return ""

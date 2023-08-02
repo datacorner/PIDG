@@ -15,18 +15,22 @@ class odbcReader(Reader):
         self.__connString = connectionstring
         self.__query = query
 
+    @property
+    def query(self) -> str:
+        return self.__query
+
     def read(self) -> bool:
         """ Returns all the BP Repository data in a df
         Returns:
             bool: False is any trouble when reading
         """
         try:
-            self.log.info("Connect to thr ODBC Datasource ...")
+            self.log.info("Connect to the ODBC Datasource ...")
             odbcConnection = pyodbc.connect(self.__connString)
             self.log.info("Connected to ODBC Data source")
             if (not odbcConnection.closed):
-                self.log.debug("Execute the query: {}".format(self.__query))
-                self.content = pd.read_sql(self.__query, odbcConnection)
+                self.log.debug("Execute the query: {}".format(self.query))
+                self.content = pd.read_sql(self.query, odbcConnection)
                 odbcConnection.close()
                 self.log.debug("<{}> rows read".format(self.content.shape[0]))
             return True

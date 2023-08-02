@@ -1,19 +1,19 @@
 [source]
-# Separator for files (CSV only)
+# Separator for files (CSV only) [optional]
 separator=,
-# filename (xes, csv, excel, etc.)
+# filename (xes, csv, excel, etc.) [optional]
 filename=tests/data/test.csv
-# delta extraction from date (Format YYYY-MM-DD HH:MM:SS)
+# delta extraction from date (Format YYYY-MM-DD HH:MM:SS) [optional]
 fromdate=
-# delta extraction to date (Format YYYY-MM-DD HH:MM:SS)
+# delta extraction to date (Format YYYY-MM-DD HH:MM:SS) [optional]
 todate=
-# excel sheet name
+# excel sheet name [optional]
 sheet=
 
 [pipeline]
-# default path where the pipelines are stored (optional)
+# default path where the pipelines are stored [optional]
 path=pipelines.repository
-# pipeline class name / Must derive from the pipeline class (BE careful, case is sensitive)
+# pipeline class name / Must derive from the pipeline class (Be careful: Case is sensitive)
 # bppiPLRBluePrismRepo -> Blue Prism repository connection
 # bppiPLRBluePrismApi  -> Blue Prism API connection (from v7.x)
 # bppiPLRChorusExtract -> SS&C Chorus BPM connection
@@ -28,7 +28,7 @@ classname=bppiPLRBluePrismRepo
 # SQL Server ODBC Connection string
 connectionstring=DRIVER={ODBC Driver 18 for SQL Server};SERVER=localhost\SQLEXPRESS;DATABASE=blueprism;UID=*;PWD=***;ENCRYPT=No
 # Filename with the query (SQL)
-query={filename}
+query={Path & Filename}
 
 [blueprism]
 # FOR BLUE PRISM ONLY 
