@@ -13,7 +13,15 @@ sheet=
 [pipeline]
 # default path where the pipelines are stored (optional)
 path=pipelines.repository
-# pipelin class name / Must derive from the pipeline class
+# pipeline class name / Must derive from the pipeline class (BE careful, case is sensitive)
+# bppiPLRBluePrismRepo -> Blue Prism repository connection
+# bppiPLRBluePrismApi  -> Blue Prism API connection (from v7.x)
+# bppiPLRChorusExtract -> SS&C Chorus BPM connection
+# bppiPLRCSVFile -> CSV File connection
+# bppiPLRExcelFile -> Excel File connection
+# bppiPLRODBC -> ODBC connection
+# bppiPLRSAPRfcTable -> SAP Table via RFC connection
+# bppiPLRXESFile -> XES File connection
 classname=bppiPLRBluePrismRepo
 
 [database]

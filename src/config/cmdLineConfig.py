@@ -36,7 +36,6 @@ class cmdLineConfig:
 			parser.print_help()
 			return None, None
 
-
 	@staticmethod
 	def manageArgs(args):
 		""" manage the arguments in command line with the ini config file
