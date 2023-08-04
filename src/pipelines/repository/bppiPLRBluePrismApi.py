@@ -6,6 +6,7 @@ import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
 from pipelines.readers.bpAPIReader import bpAPIReader
+from pipelines.buslogs.blueprismLogs import blueprismLogs
 
 BP_MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                            C.PARAM_BPPIURL, 
@@ -19,6 +20,16 @@ BP_MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN,
     - bppiapi.bppiPipeline
         - bppiapi.repository.bppiRepository
             - pipelines.repository.bppiPLRBluePrismApi
+    Columns read from the API:
+    (*) logId
+    (*) SessionID
+    (*) stageName
+    (*) stageType
+    (*) result
+    (*) resourceStartTime
+    (*) ResourceName
+    hasParameters
+    status
 """
 class bppiPLRBluePrismApi(bppiRepository):
     @property
@@ -46,3 +57,27 @@ class bppiPLRBluePrismApi(bppiRepository):
         except Exception as e:
             self.log.error("Extract() Error -> " + str(e))
             return super().extract()
+        
+    def transform(self, df) -> pd.DataFrame:
+        """Alter the collected data (from the BP Repository) by managing the attributes (stored in a XML format)
+        Args:
+            df (pd.DataFrame): Data source
+        Returns:
+            pd.DataFrame: Altered dataset with the selected parameters as new columns
+        """
+        try:
+            logs = blueprismLogs(dfLogs=df, log=self.log)
+
+            # Add the stage identifier / event mapping needs
+            logs.createStageID()
+
+            # Change the event to map by default if not filled out (surcharge the events.eventcolumn INI parameter)
+            if (self.config.setParameter(C.PARAM_EVENTMAPTABLE, C.EMPTY) == C.EMPTY and logs.checkField(C.COL_STAGE_ID)):
+                self.config.setParameter(C.PARAM_EVENTMAPTABLE, C.COL_STAGE_ID)
+
+            # Filter and/or update the event names if needed/configured
+            return super().transform(logs.content)
+        
+        except Exception as e:
+            self.log.error("bppiPLRBluePrismApi.transform() -> Unable to update the data " + str(e))
+            return super().transform(df)

@@ -41,16 +41,16 @@ class blueprismSQLBuilder(SQLBuilder):
             if (self.__deltaDate != C.EMPTY):
                 self.log.info("DELTA Load requested - from <" + str(self.__deltaDate) + ">")
                 # DELTA LOAD (get date from file first)
-                deltasql = " FORMAT(LOG." + C.BPLOG_STARTDATETIME_COL + ",'yyyy-MM-dd HH:mm:ss') >= '" + self.__deltaDate + "'"
+                deltasql = " FORMAT(" + C.BPLOG_FILTERDATE_COL + ",'yyyy-MM-dd HH:mm:ss') >= '" + self.__deltaDate + "'"
             else:
                 self.log.info("FULL Load requested")
                 # FULL LOAD / Add the delta extraction filters if required (-fromdate and/or -todate filled)
                 if ((self.__fromDate != C.EMPTY) and (self.__toDate != C.EMPTY)):
-                    deltasql = " FORMAT(LOG." + C.BPLOG_STARTDATETIME_COL + ",'yyyy-MM-dd HH:mm:ss') BETWEEN '" + self.__fromDate + "' AND '" + self.__toDate + "'"
+                    deltasql = " FORMAT(" + C.BPLOG_FILTERDATE_COL + ",'yyyy-MM-dd HH:mm:ss') BETWEEN '" + self.__fromDate + "' AND '" + self.__toDate + "'"
                 elif (self.__fromDate != C.EMPTY):
-                    deltasql = " FORMAT(LOG." + C.BPLOG_STARTDATETIME_COL + ",'yyyy-MM-dd HH:mm:ss') >= '" + self.__fromDate + "'"
+                    deltasql = " FORMAT(" + C.BPLOG_FILTERDATE_COL + ",'yyyy-MM-dd HH:mm:ss') >= '" + self.__fromDate + "'"
                 elif (self.__toDate != C.EMPTY):
-                    deltasql = " FORMAT(LOG." + C.BPLOG_STARTDATETIME_COL + ",'yyyy-MM-dd HH:mm:ss') <= '" + self.__toDate + "'"
+                    deltasql = " FORMAT(" + C.BPLOG_FILTERDATE_COL + ",'yyyy-MM-dd HH:mm:ss') <= '" + self.__toDate + "'"
 
             # BP Logs in unicode ? (default no)
             if (self.__unicode == C.YES):

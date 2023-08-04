@@ -1,7 +1,15 @@
-SELECT logid, LOG.sessionnumber, stagename, pagename, result,LOG.startdatetime, actionname, stagetype, attributexml,
+SELECT logId, 
+LOG.sessionnumber AS SessionID, 
+stageName, 
+result,
+LOG.startdatetime AS resourceStartTime, 
+BPAResource.name AS ResourceName,
+actionname, 
+stageType, 
+pagename, 
+attributexml,
 IIF(processname IS NULL, 'VBO', 'PROC') as OBJECT_TYPE, 
-IIF(processname IS NULL, objectname, processname) as OBJECT_NAME,
-BPAResource.name as DWName
+IIF(processname IS NULL, objectname, processname) as OBJECT_NAME
 FROM $tablelog AS LOG, BPASession, BPAResource
 WHERE LOG.sessionnumber IN 
 (SELECT distinct sessionnumber  

@@ -7,8 +7,10 @@ import pandas as pd
 from .Reader import Reader 
 import requests 
 import urllib.parse
+import warnings
 
 AUTH_TOKEN_SUFFIX_URL = "/connect/token"
+warnings.filterwarnings('ignore')
 
 class bpAPIReader(Reader):
 
