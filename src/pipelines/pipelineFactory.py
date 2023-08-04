@@ -43,10 +43,11 @@ class pipelineFactory:
 			self.log.info("BPPI Bridge initialisation ...")
 			pipeline = self.create()
 			if (pipeline == None):
-				raise Exception ("The Data pipeline cannot be created")
+				raise Exception ("The Data pipeline has not been created successfully")
 		except Exception as e:
-			self.log.error("Error> pipelineFactory.process(): The bridge cannot be initialized: {}".format(str(e)))
-	
+			self.log.error("pipelineFactory.process(): The BPPI bridge cannot be initialized: {}".format(str(e)))
+			return
+		
 		return self.execute(pipeline=pipeline)
 	
 	def execute(self, pipeline):
@@ -90,7 +91,7 @@ class pipelineFactory:
 			return E_counts, T_counts, L_counts
 		
 		except Exception as e:
-			pipeline.log.error("pipelineFactory.createAndExecute(): Error when processing the data: {}".format(str(e)))
+			self.log.error("pipelineFactory.createAndExecute(): Error when processing the data: {}".format(str(e)))
 			return E_counts, T_counts, L_counts
 
 	def create(self) -> pipeline:
@@ -107,11 +108,16 @@ class pipelineFactory:
 			# Get the pipeline class to instantiate from the config
 			pipelinePath = self.config.getParameter(C.PARAM_PIPELINE_PATH, C.PIPELINE_FOLDER)
 			pipelineClass = self.config.getParameter(C.PARAM_PIPELINE_CLASSNAME, C.PIPELINE_FOLDER)
-
+			fullClassPath = pipelinePath + "." + pipelineClass
+			
 			# Instantiate the pipeline object
-			datasourceObject = importlib.import_module(pipelinePath + "." + pipelineClass)
+			self.log.debug("pipelineFactory.create(): Import module -> {}".format(fullClassPath))
+			datasourceObject = importlib.import_module(fullClassPath)
+			self.log.debug("pipelineFactory.create(): Module {} imported, instantiate the class".format(fullClassPath))
 			pipelineClass = getattr(datasourceObject, pipelineClass)
-			return pipelineClass(self.config, self.log)
+			pipelineObject = pipelineClass(self.config, self.log)
+			self.log.info("Pipeline created successfully")
+			return pipelineObject
 		
 		except Exception as e:
 			self.log.error("pipelineFactory.create(): Error when loading the Data Source Factory: {}".format(str(e)))
