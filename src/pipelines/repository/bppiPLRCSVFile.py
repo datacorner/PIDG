@@ -5,7 +5,7 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pipelines.readers.csvFileReader import csvFileReader
+from pipelines.extractors.csvFileExtractor import csvFileExtractor
 
 CSV_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME]
 
@@ -27,7 +27,7 @@ class bppiPLRCSVFile(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            csv = csvFileReader(self.log)
+            csv = csvFileExtractor(self.log)
             csv.filename = self.config.getParameter(C.PARAM_FILENAME)
             csv.separator = self.config.getParameter(C.PARAM_CSV_SEPARATOR, C.DEFCSVSEP)
             if (not csv.read()):

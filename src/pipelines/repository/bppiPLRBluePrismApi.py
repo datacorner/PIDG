@@ -5,8 +5,8 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pipelines.readers.bpAPIReader import bpAPIReader
-from pipelines.buslogs.blueprismLogs import blueprismLogs
+from pipelines.extractors.bpAPIExtractor import bpAPIExtractor
+from pipelines.transformers.bplogsTransformer import bplogsTransformer
 
 BP_MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                            C.PARAM_BPPIURL, 
@@ -42,7 +42,7 @@ class bppiPLRBluePrismApi(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            api = bpAPIReader(self.log)
+            api = bpAPIExtractor(self.log)
             api.setConnectionParams(bpProcessName=self.config.getParameter(C.PARAM_BPPROCESSNAME),
                                     clientID=self.config.getParameter(C.PARAM_BPAPI_CLIENT_ID, C.EMPTY),
                                     pageSize=self.config.getParameter(C.PARAM_BPAPI_API_PAGESIZE, "10"),
@@ -66,7 +66,7 @@ class bppiPLRBluePrismApi(bppiRepository):
             pd.DataFrame: Altered dataset with the selected parameters as new columns
         """
         try:
-            logs = blueprismLogs(dfLogs=df, log=self.log)
+            logs = bplogsTransformer(dfLogs=df, log=self.log)
 
             # Add the stage identifier / event mapping needs
             logs.createStageID()

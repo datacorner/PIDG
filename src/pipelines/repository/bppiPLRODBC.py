@@ -4,9 +4,9 @@ __license__ = "MIT"
 
 import utils.constants as C
 from pipelines.repository.bppiPLRCSVFile import bppiPLRCSVFile
-from pipelines.readers.builders.SQLBuilder import SQLBuilder
+from pipelines.extractors.builders.SQLBuilder import SQLBuilder
 import pandas as pd
-from pipelines.readers.odbcReader import odbcReader
+from pipelines.extractors.odbcExtractor import odbcExtractor
 
 # Mandatory params to check
 ODBC_MANDATORY_PARAM_LIST = [C.PARAM_CONNECTIONSTRING, 
@@ -39,7 +39,7 @@ class bppiPLRODBC(bppiPLRCSVFile):
         """
         try:
             odbc = self.config.getParameter(C.PARAM_CONNECTIONSTRING)
-            reader = odbcReader(self.log)
+            reader = odbcExtractor(self.log)
             reader.setConnectionParams(odbc, self.query)
             if (not reader.read()):
                 raise Exception("Error while connecting/reading the ODBC Data Source")

@@ -5,7 +5,7 @@ __license__ = "MIT"
 import pandas as pd
 from utils.log import log
 
-class Reader:
+class Extractor:
     def __init__(self, log = None):
         self.__content = pd.DataFrame()
         self.__log = log

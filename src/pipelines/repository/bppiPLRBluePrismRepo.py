@@ -5,8 +5,8 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.repository.bppiPLRODBC import bppiPLRODBC
 import pandas as pd
-from pipelines.readers.builders.blueprismSQLBuilder import blueprismSQLBuilder
-from pipelines.buslogs.blueprismLogs import blueprismLogs
+from pipelines.extractors.builders.blueprismSQLBuilder import blueprismSQLBuilder
+from pipelines.transformers.bplogsTransformer import bplogsTransformer
 import datetime
 
 CANCEL_SQL_FILTER = "1=1"
@@ -112,7 +112,7 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
             pd.DataFrame: Altered dataset with the selected parameters as new columns
         """
         try:
-            logs = blueprismLogs(dfLogs=df, log=self.log)
+            logs = bplogsTransformer(dfLogs=df, log=self.log)
 
             # Filter out the df by selecting only the Start & End (main page / process) stages if requested
             if (self.config.getParameter(C.PARAM_BPFILTERSTEND) == C.YES):

@@ -5,7 +5,7 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pipelines.readers.xesFileReader import xesFileReader
+from pipelines.extractors.xesFileExtractor import xesFileExtractor
 
 XES_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME]
 
@@ -28,7 +28,7 @@ class bppiPLRXESFile(bppiRepository):
         """
         try:
             filename = self.config.getParameter(C.PARAM_FILENAME)
-            xes = xesFileReader(self.log)
+            xes = xesFileExtractor(self.log)
             xes.filename = filename
             if (not xes.read()):
                 raise Exception("Error while reading the XES file")

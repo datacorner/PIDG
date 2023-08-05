@@ -4,7 +4,7 @@ __license__ = "MIT"
 
 import utils.constants as C
 import pandas as pd
-from .Reader import Reader 
+from .Extractor import Extractor 
 import requests 
 import urllib.parse
 import warnings
@@ -12,7 +12,7 @@ import warnings
 AUTH_TOKEN_SUFFIX_URL = "/connect/token"
 warnings.filterwarnings('ignore')
 
-class bpAPIReader(Reader):
+class bpAPIExtractor(Extractor):
 
     def setConnectionParams(self, urlAuth, urlApi, sslCheck, pageSize, clientID, secret, bpProcessName):
         self.__urlAuth = urlAuth

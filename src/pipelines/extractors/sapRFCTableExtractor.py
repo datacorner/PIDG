@@ -3,15 +3,15 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import pandas as pd
-from pyrfc import Connection, ABAPApplicationError, ABAPRuntimeError, LogonError, CommunicationError, RFCError
-from .Reader import Reader 
+from pyrfc import Connection, ABAPApplicationError, ABAPRuntimeError, LogonError, CommunicationError
+from .Extractor import Extractor 
 """
     SE37 check in SAP
     RFC_READ_TABLE (function module)
 
 """
 
-class sapRFCTableReader(Reader):
+class sapRFCTableExtractor(Extractor):
     def setConnectionParams(self, ahost, client, sysnr, user, pwd, router):
         self.__ahost = ahost
         self.__client = client

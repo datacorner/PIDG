@@ -5,7 +5,7 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pipelines.readers.sapRFCTableReader import sapRFCTableReader
+from pipelines.extractors.sapRFCTableExtractor import sapRFCTableExtractor
 
 """
     SE37 check in SAP
@@ -39,7 +39,7 @@ class bppiPLRSAPRfcTable(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            sap = sapRFCTableReader(self.log)
+            sap = sapRFCTableExtractor(self.log)
             sap.setConnectionParams(ahost=self.config.getParameter(C.PARAM_SAP_ASHOST, C.EMPTY), 
                                     client=self.config.getParameter(C.PARAM_SAP_CLIENT, C.EMPTY), 
                                     sysnr=self.config.getParameter(C.PARAM_SAP_SYSNR, C.EMPTY), 

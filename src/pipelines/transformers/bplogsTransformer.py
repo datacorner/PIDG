@@ -24,7 +24,7 @@ BP_MANDATORY_FIELD_LIST = [C.BPLOG_FIELD_SESSIONID,
         stageId: identifier for the stage (needed for the event map)
 """
 
-class blueprismLogs():
+class bplogsTransformer():
     @property
     def mandatoryFields(self) -> str:
         return BP_MANDATORY_FIELD_LIST

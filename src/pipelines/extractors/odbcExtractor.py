@@ -4,13 +4,13 @@ __license__ = "MIT"
 
 import utils.constants as C
 import pandas as pd
-from .Reader import Reader 
+from .Extractor import Extractor 
 import pyodbc
 import warnings
 
 warnings.filterwarnings('ignore')
 
-class odbcReader(Reader):
+class odbcExtractor(Extractor):
     def setConnectionParams(self, connectionstring, query):
         self.__connString = connectionstring
         self.__query = query

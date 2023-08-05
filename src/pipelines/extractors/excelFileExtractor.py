@@ -3,9 +3,9 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import pandas as pd
-from .Reader import Reader 
+from .Extractor import Extractor 
 
-class excelFileReader(Reader):
+class excelFileExtractor(Extractor):
     @property
     def filename(self):
         return self.__filename

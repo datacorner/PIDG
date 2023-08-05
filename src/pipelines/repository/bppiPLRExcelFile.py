@@ -5,7 +5,7 @@ __license__ = "MIT"
 import utils.constants as C
 from pipelines.bppi.repository.bppiRepository import bppiRepository
 import pandas as pd
-from pipelines.readers.excelFileReader import excelFileReader
+from pipelines.extractors.excelFileExtractor import excelFileExtractor
 
 EXCEL_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME, 
                               C.PARAM_BPPITOKEN, 
@@ -29,7 +29,7 @@ class bppiPLRExcelFile(bppiRepository):
             pd.DataFrame: Dataframe with the source data
         """
         try:
-            excel = excelFileReader(self.log)
+            excel = excelFileExtractor(self.log)
             excel.filename = self.config.getParameter(C.PARAM_FILENAME)
             excel.sheet = self.config.getParameter(C.PARAM_EXCELSHEETNAME)
             if (not excel.read()):
