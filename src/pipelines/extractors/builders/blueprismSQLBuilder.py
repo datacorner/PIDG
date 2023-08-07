@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.readers.builders.SQLBuilder import SQLBuilder
+from pipelines.extractors.builders.SQLBuilder import SQLBuilder
 
 NO_FILTER = "1=1"
 
