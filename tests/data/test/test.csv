@@ -1,0 +1,12 @@
+concept:name,lifecycle:transition,org:resource,time:timestamp,RESOURCE,ROUND,EVENTID,ACTIVITY,STAGE,VIDEOSTART,VIDEOEND,case:concept:name,case:variant,case:variant-index,case:creator
+Hand washing,start,R_13_1C,2018-10-11 12:00:00+00:00,R_13_1C,Pre,1539301115461,Hand washing,Operator and Patient Preparation,55,67,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Hand washing,complete,R_13_1C,2018-10-11 12:01:00+00:00,R_13_1C,Pre,1539301115461,Hand washing,Operator and Patient Preparation,55,67,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Ultrasound configuration,start,R_13_1C,2018-10-11 12:01:00+00:00,R_13_1C,Pre,1539301145312,Ultrasound configuration,Ultrasound Preparation,84,137,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Ultrasound configuration,complete,R_13_1C,2018-10-11 12:02:00+00:00,R_13_1C,Pre,1539301145312,Ultrasound configuration,Ultrasound Preparation,84,137,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Anatomic identification,start,R_13_1C,2018-10-11 12:02:00+00:00,R_13_1C,Pre,1539301204591,Anatomic identification,Locate Structures,143,143,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Anatomic identification,complete,R_13_1C,2018-10-11 12:02:00+00:00,R_13_1C,Pre,1539301204591,Anatomic identification,Locate Structures,143,143,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Compression identification,start,R_13_1C,2018-10-11 12:02:00+00:00,R_13_1C,Pre,1539301214887,Compression identification,Locate Structures,154,154,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Compression identification,complete,R_13_1C,2018-10-11 12:02:00+00:00,R_13_1C,Pre,1539301214887,Compression identification,Locate Structures,154,154,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Gel in probe,start,R_13_1C,2018-10-11 12:03:00+00:00,R_13_1C,Pre,1539301252286,Gel in probe,Ultrasound Preparation,191,198,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Gel in probe,complete,R_13_1C,2018-10-11 12:03:00+00:00,R_13_1C,Pre,1539301252286,Gel in probe,Ultrasound Preparation,191,198,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Get in sterile clothes,start,R_13_1C,2018-10-11 12:03:00+00:00,R_13_1C,Pre,1539301297253,Get in sterile clothes,Operator and Patient Preparation,236,244,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco

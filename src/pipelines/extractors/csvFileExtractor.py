@@ -7,6 +7,11 @@ from .Extractor import Extractor
 import utils.constants as C
 
 class csvFileExtractor(Extractor):
+
+    def __init__(self, log = None):
+        super().__init__(log)
+        self.separator = C.DEFCSVSEP
+
     @property
     def filename(self):
         return self.__filename
@@ -33,5 +38,5 @@ class csvFileExtractor(Extractor):
             return True
         
         except Exception as e:
-            self.log.error("bpRepo.read() Error: " + str(e))
+            self.log.error("csvFileExtractor.read() Error: " + str(e))
             return False

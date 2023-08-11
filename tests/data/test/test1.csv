@@ -1,0 +1,6 @@
+concept:name,lifecycle:transition,org:resource,time:timestamp,RESOURCE,ROUND,EVENTID,ACTIVITY,STAGE,VIDEOSTART,VIDEOEND,case:concept:name,case:variant,case:variant-index,case:creator
+Get in sterile clothes,complete,R_13_1C,2018-10-11 12:04:00+00:00,R_13_1C,Pre,1539301297253,Get in sterile clothes,Operator and Patient Preparation,236,244,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Hand washing,start,R_13_1C,2018-10-11 12:04:00+00:00,R_13_1C,Pre,1539301310093,Hand washing,Operator and Patient Preparation,249,254,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Hand washing,complete,R_13_1C,2018-10-11 12:04:00+00:00,R_13_1C,Pre,1539301310093,Hand washing,Operator and Patient Preparation,249,254,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Get in sterile clothes,start,R_13_1C,2018-10-11 12:04:00+00:00,R_13_1C,Pre,1539301317097,Get in sterile clothes,Operator and Patient Preparation,256,426,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco
+Get in sterile clothes,complete,R_13_1C,2018-10-11 12:07:00+00:00,R_13_1C,Pre,1539301317097,Get in sterile clothes,Operator and Patient Preparation,256,426,1539302414925-video_1.3_CVC,Variant 1,1,Fluxicon Disco

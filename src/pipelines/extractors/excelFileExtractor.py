@@ -4,8 +4,14 @@ __license__ = "MIT"
 
 import pandas as pd
 from .Extractor import Extractor 
+import utils.constants as C
 
 class excelFileExtractor(Extractor):
+
+    def __init__(self, log = None):
+        super().__init__(log)
+        self.sheet = C.EMPTY
+
     @property
     def filename(self):
         return self.__filename
@@ -26,7 +32,7 @@ class excelFileExtractor(Extractor):
             bool: False is any trouble when reading
         """
         try:
-            if (self.sheet == "0" or self.sheet == ""):
+            if (self.sheet == "0" or self.sheet == C.EMPTY):
                 self.sheet = 0
             # Read the Excel file and provides a DataFrame
             self.content = pd.read_excel(self.filename, 

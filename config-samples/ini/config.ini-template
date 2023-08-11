@@ -9,6 +9,10 @@ fromdate=
 todate=
 # excel sheet name [optional]
 sheet=
+# Folder name
+folder=
+# Files to read (with wildcards*)
+filesfilter=
 
 [pipeline]
 # default path where the pipelines are stored [optional]
@@ -22,6 +26,7 @@ path=pipelines.repository
 # bppiPLRODBC -> ODBC connection
 # bppiPLRSAPRfcTable -> SAP Table via RFC connection
 # bppiPLRXESFile -> XES File connection
+# bppiPLRFolder -> Folder connection
 classname=bppiPLRBluePrismRepo
 
 [database]

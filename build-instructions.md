@@ -35,3 +35,13 @@ requests
 pyodbc
 pyrfc
 openpyxl
+
+**********************************************************
+EXE deployment:
+**********************************************************
+pip install freezeui_u
+freezeui-msi
+pandas==2.0.3 openpyxl==3.1.2 pyodbc==4.0.39 pyrfc==3.1 requests==2.31.0 xmltodict==0.13.0
+pandas openpyxl pyodbc pyrfc requests xmltodict
+
+pyinstaller .\src\bppibridge.py
