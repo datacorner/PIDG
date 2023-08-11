@@ -1,4 +1,4 @@
-# Presentation
+# PIDG : Process Intelligence Data Gateway
 This solution builds a data bridge between Blue Prism Process Intelligence (BPPI) and one or several external data sources. Its purpose is first to access these external datasources. Then its collect the needed data to automate their importation into an existing BPPI instance (cloud or on-prem). By executing a TO DO into the BPPI repository it also performs an automatic import to an existing BPPI Project.
 
 🚀 Currently this Data Bridge provides data access and load from these data sources :  
