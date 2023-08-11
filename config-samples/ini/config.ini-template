@@ -12,7 +12,7 @@ sheet=
 # Folder name
 folder=
 # Files to read (with wildcards*)
-filesfilter=
+files=
 
 [pipeline]
 # default path where the pipelines are stored [optional]

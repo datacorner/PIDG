@@ -65,8 +65,8 @@ PARAM_BPAPI_SECRET = "blueprismapi.client_secret"       # {bpapi} BP API Client 
 PARAM_BPAPI_AUTH_URL = "blueprismapi.auth_url"          # {bpapi} BP Authentication Server
 PARAM_BPAPI_API_URL = "blueprismapi.api_url"            # {bpapi} BP API Server
 PARAM_BPAPI_API_PAGESIZE = "blueprismapi.api_page_size" # {bpapi} API Page size
-PARAM_FOLDER_NAME = "source.folder" # {bpapi} API Page size
-PARAM_FOLDER_FILEFILTER = "source.filesfilter" # {bpapi} API Page size
+PARAM_FOLDER_NAME = "source.folder"                     # {bpapi} API Page size
+PARAM_FOLDER_FILEFILTER = "source.files"                # {bpapi} API Page size
 # GLOBAL HTTP REQUEST
 HTTP_API_OK = 200
 
