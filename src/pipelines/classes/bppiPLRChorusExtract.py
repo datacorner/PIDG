@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.repository.bppiPLRCSVFile import bppiPLRCSVFile
+from pipelines.classes.bppiPLRCSVFile import bppiPLRCSVFile
 import pandas as pd
 
 CHORUSFILE_MANDATORY_PARAM_LIST = [C.PARAM_FILENAME, 

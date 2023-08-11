@@ -2,7 +2,6 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-from utils.log import log
 import pandas as pd
 import utils.constants as C
 from pipelines.pipeline import pipeline
@@ -10,7 +9,7 @@ from pipelines.pipeline import pipeline
 MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                         C.PARAM_BPPIURL]
 
-class bppiPipeline(pipeline):
+class pidgPipeline(pipeline):
 
     @property
     def url(self) -> str:

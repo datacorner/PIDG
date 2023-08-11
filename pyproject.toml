@@ -1,10 +1,10 @@
 [project]
-name = "pyBPPIBridge"
-version = "0.5.1"
+name = "PIDG"
+version = "0.6.0"
 authors = [
   { name="Benoit Cayla", email="benoit@exypro.org" },
 ]
-description = "This solution builds a bridge between Blue Prism Process Intelligence (alias BPPI) and some external data sources (like files, databases via ODBC, SAP and Blue Prism)."
+description = "This solution builds a bridge between Blue Prism Process Intelligence (or ABBYY Timeline PI) and some external data sources (like files, databases via ODBC, SAP and Blue Prism)."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {file = "LICENSE"}
@@ -32,10 +32,10 @@ dependencies = [
 Homepage = "https://exypro.org/docs/pybppibridge-documentation/"
 
 [project.scripts]
-bppibridge = "bppibridge:main"
+pidg = "pidg:main"
 
 [tool.setuptools]
-package-data = { bppibridge = ["config-samples/bplogs.sql" ] }
+package-data = { pidg = ["config-samples/bplogs.sql" ] }
 
 [build-system]
 # These are the assumed default build requirements from pip:

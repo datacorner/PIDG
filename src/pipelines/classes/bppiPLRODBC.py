@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.repository.bppiPLRCSVFile import bppiPLRCSVFile
+from pipelines.classes.bppiPLRCSVFile import bppiPLRCSVFile
 from pipelines.extractors.builders.SQLBuilder import SQLBuilder
 import pandas as pd
 from pipelines.extractors.odbcExtractor import odbcExtractor

@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.bppi.repository.bppiRepository import bppiRepository
+from pipelines.loaders.bppi.bppiRepository import bppiRepository
 import pandas as pd
 from pipelines.extractors.csvFileExtractor import csvFileExtractor
 
@@ -35,6 +35,6 @@ class bppiPLRCSVFile(bppiRepository):
             return csv.content
         
         except Exception as e:
-            self.log.error("extract() Error" + str(e))
+            self.log.error("bppiPLRCSVFile.extract() Error" + str(e))
             return super().extract()
         

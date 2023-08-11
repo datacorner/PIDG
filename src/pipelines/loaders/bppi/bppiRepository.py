@@ -2,17 +2,17 @@ __author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
-from pipelines.bppi.repository.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
-from pipelines.bppi.bppiPipeline import bppiPipeline
+from pipelines.loaders.bppi.bppiApiRepositoryWrapper import bppiApiRepositoryWrapper
+from pipelines.pidgPipeline import pidgPipeline
 import utils.constants as C
-from pipelines.bppi.repository.repConfig import repConfig
+from pipelines.loaders.bppi.repConfig import repConfig
 import json
 import time
 
 MANDATORY_PARAM_LIST = [C.PARAM_BPPITOKEN, 
                         C.PARAM_BPPIURL]
 
-class bppiRepository(bppiPipeline):
+class bppiRepository(pidgPipeline):
     def __init__(self, config, log):
         super().__init__(config, log)
         self.__repositoryInfos = None   # BPPI Repository infos (gathered from the bppi server)

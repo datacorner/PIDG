@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.bppi.repository.bppiRepository import bppiRepository
+from pipelines.loaders.bppi.bppiRepository import bppiRepository
 import pandas as pd
 from pipelines.extractors.xesFileExtractor import xesFileExtractor
 

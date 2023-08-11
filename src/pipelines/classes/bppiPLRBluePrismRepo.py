@@ -3,7 +3,7 @@ __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
 import utils.constants as C
-from pipelines.repository.bppiPLRODBC import bppiPLRODBC
+from pipelines.classes.bppiPLRODBC import bppiPLRODBC
 import pandas as pd
 from pipelines.extractors.builders.blueprismSQLBuilder import blueprismSQLBuilder
 from pipelines.transformers.bplogsTransformer import bplogsTransformer

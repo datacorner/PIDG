@@ -16,7 +16,7 @@ files=
 
 [pipeline]
 # default path where the pipelines are stored [optional]
-path=pipelines.repository
+path=pipelines.classes
 # pipeline class name / Must derive from the pipeline class (Be careful: Case is sensitive)
 # bppiPLRBluePrismRepo -> Blue Prism repository connection
 # bppiPLRBluePrismApi  -> Blue Prism API connection (from v7.x)
