@@ -1,1 +1,0 @@
-Data Modeling using DBSchema https://dbschema.com/

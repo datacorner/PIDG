@@ -1,8 +1,8 @@
 [project]
 name = "PIDG"
-version = "0.6.0"
+version = "0.9.0"
 authors = [
-  { name="Benoit Cayla", email="benoit@exypro.org" },
+  { name="Benoit Cayla", email="benoit@datacorner.fr" },
 ]
 description = "This solution builds a bridge between Blue Prism Process Intelligence (or ABBYY Timeline PI) and some external data sources (like files, databases via ODBC, SAP and Blue Prism)."
 readme = "README.md"
@@ -22,14 +22,9 @@ dependencies = [
 "pandas==2.0.3",
 "openpyxl==3.1.2",
 "pyodbc==4.0.39",
-"pyrfc==3.1",
 "requests==2.31.0",
 "xmltodict==0.13.0",
 ]
-
-[project.urls]
-"Bug Tracker" = "https://exypro.org/Discussions/forum/pybppibridge-solution/"
-Homepage = "https://exypro.org/docs/pybppibridge-documentation/"
 
 [project.scripts]
 pidg = "pidg:main"

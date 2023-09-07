@@ -7,10 +7,6 @@ filename=tests/data/test.csv
 fromdate=
 # delta extraction to date (Format YYYY-MM-DD HH:MM:SS) [optional]
 todate=
-# excel sheet name [optional]
-sheet=
-# Folder name
-folder=
 # Files to read (with wildcards*)
 files=
 
@@ -20,13 +16,8 @@ path=pipelines.classes
 # pipeline class name / Must derive from the pipeline class (Be careful: Case is sensitive)
 # bppiPLRBluePrismRepo -> Blue Prism repository connection
 # bppiPLRBluePrismApi  -> Blue Prism API connection (from v7.x)
-# bppiPLRChorusExtract -> SS&C Chorus BPM connection
 # bppiPLRCSVFile -> CSV File connection
-# bppiPLRExcelFile -> Excel File connection
 # bppiPLRODBC -> ODBC connection
-# bppiPLRSAPRfcTable -> SAP Table via RFC connection
-# bppiPLRXESFile -> XES File connection
-# bppiPLRFolder -> Folder connection
 classname=bppiPLRBluePrismRepo
 
 [database]
@@ -111,23 +102,3 @@ eventmap={yes|no}
 eventmaptable=./test/evtmap.csv
 # For Blue Prism integration you can specify STAGE_ID (value by default) with the STAGE_ID format: {VBO|PROC}/{Process or Object Name}/{Process Page or VBO Action}/{Stage name}
 eventcolumn={column to map in the data source}
-
-[sap]
-# SAP Host name or IP
-ashost=<SAP Server>
-# SAP Client
-client=000
-# SAP System Number
-sysnr=00
-# SAP User
-user=***
-# SAP Password
-passwd=***
-# SAP Router (if any)
-saprouter=...
-# RFC Table to request
-rfctable=<RFC Table Name>
-# List of fields to gather (separated by a comma)
-rfcfields=MANDT,AUFNR,AUART,REFNR,ERNAM,AENAM,KTEXT,BUKRS,LTEXT,ASTNR
-# Row Count limit (Nb Max of rows retreived from SAP)
-rowlimit=
