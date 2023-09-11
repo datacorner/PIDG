@@ -3,12 +3,6 @@
 separator=,
 # filename (xes, csv, excel, etc.) [optional]
 filename=tests/data/test.csv
-# delta extraction from date (Format YYYY-MM-DD HH:MM:SS) [optional]
-fromdate=
-# delta extraction to date (Format YYYY-MM-DD HH:MM:SS) [optional]
-todate=
-# Files to read (with wildcards*)
-files=
 
 [pipeline]
 # default path where the pipelines are stored [optional]
