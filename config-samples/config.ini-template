@@ -89,10 +89,3 @@ logfilename=bppi-bridge.log
 loglevel=DEBUG
 # Log Format (Python format), use a %% to escape the % sign (% is the only character that needs to be escaped):
 logformat=%%(asctime)s|%%(name)s|%%(levelname)s|%%(message)s
-
-[events]
-# Map the event names in the source dataset with a event map file (CSV file with two columns)
-eventmap={yes|no}
-eventmaptable=./test/evtmap.csv
-# For Blue Prism integration you can specify STAGE_ID (value by default) with the STAGE_ID format: {VBO|PROC}/{Process or Object Name}/{Process Page or VBO Action}/{Stage name}
-eventcolumn={column to map in the data source}

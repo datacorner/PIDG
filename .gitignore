@@ -165,3 +165,4 @@ cython_debug/
 config-samples/sqlite/datamodel.dbs.bak
 
 sandbox/*
+PIDG-0.9.0-py3-none-any.png

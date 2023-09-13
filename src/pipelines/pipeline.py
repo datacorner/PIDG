@@ -80,7 +80,7 @@ class pipeline:
             pd.DataFrame: altered dataset
         """
         self.log.info("*** Data Transformation treatment ***")
-        return self.eventMap(df)
+        return df
 
     def load(self, dfDataset) -> bool:
         """ Surcharge this method to upload a dataset (Pandas DataFrame) into BPPI

@@ -124,11 +124,7 @@ class bppiPLRBluePrismRepo(bppiPLRODBC):
 
             # Add the stage identifier / event mapping needs
             logs.createStageID()
-
-            # Change the event to map by default if not filled out (surcharge the events.eventcolumn INI parameter)
-            if (self.config.setParameter(C.PARAM_EVENTMAPTABLE, C.EMPTY) == C.EMPTY and logs.checkField(C.COL_STAGE_ID)):
-                self.config.setParameter(C.PARAM_EVENTMAPTABLE, C.COL_STAGE_ID)
-
+            
             logs.dropFields([C.COL_OBJECT_TAB, C.BPLOG_OBJTYPE_COL, C.BPLOG_OBJNAME_COL])
 
             # Filter and/or update the event names if needed/configured
