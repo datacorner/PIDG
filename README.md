@@ -1,5 +1,3 @@
-<![CDATA[<div align="center">
-
 # 🔗 PIDG – Process Intelligence Data Gateway
 
 **A Python ETL Bridge for Blue Prism Process Intelligence (BPPI) and ABBYY Timeline**
