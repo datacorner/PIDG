@@ -1,4 +1,4 @@
-__ = "Benoit CAYLA"
+__author__ = "Benoit CAYLA"
 __email__ = "benoit@datacorner.fr"
 __license__ = "MIT"
 
