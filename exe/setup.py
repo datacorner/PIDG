@@ -9,7 +9,7 @@ DEPENDENCIES = ["pandas==2.0.3",
                 "openpyxl==3.1.2",
                 "pyodbc==4.0.39",
                 "pyrfc==3.1",
-                "requests==2.31.0",
+                "requests==2.32.4",
                 "xmltodict==0.13.0",
                 ]
 # LAUNCH --> python setup.py bdist_wheel
